@@ -15,6 +15,16 @@
     </head>
 
     <body>
+
+        <div id="app"></div>
+
+        <script>
+            window.addEventListener("load", () => {
+                var view = new demo_view.View("app");
+                view.activate();
+            });
+        </script>
+
         <script async defer src="./_bundles/demo_bl.js"></script>
         <script async defer src="./_bundles/demo_view.js"></script>
         <script async defer src="./_bundles/demo_plugin1.js"></script>
