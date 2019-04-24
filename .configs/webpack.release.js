@@ -21,7 +21,6 @@ module.exports = Object.assign(
         devtool: "source-map",
         plugins: [
             ...sharedPlugins(false),
-            new webpack.IgnorePlugin(/mocks/),
             new BundleAnalyzerPlugin({
                 openAnalyzer: false,
                 analyzerMode: "static"

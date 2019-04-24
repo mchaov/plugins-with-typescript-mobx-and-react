@@ -21,13 +21,6 @@ module.exports = Object.assign(
     sharedConfig(false), {
         mode: "development",
         devtool: "source-map",
-        output: {
-            path: path.resolve(__dirname, "..", "_bundles"),
-            filename: `${snakeToCamel(packageJson.name)}.dev.js`,
-            libraryTarget: "umd",
-            library: `${snakeToCamel(packageJson.name)}`,
-            umdNamedDefine: true
-        },
         plugins: [
             ...sharedPlugins(false),
             new BundleAnalyzerPlugin({

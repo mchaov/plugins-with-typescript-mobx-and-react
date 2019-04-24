@@ -17,29 +17,6 @@ module.exports = debug => {
             tsconfig: path.resolve(__dirname, "..", "tsconfig.json"),
             useTypescriptIncrementalApi: workerThreads(debug).typeChecker > 1 ? false : true,
             reportFiles: ["**/*.{ts,tsx}", "!**/node_modules/**/*", "!**/dist/**/*", "!**/mocks/**/*", "!**/lib-esm/**/*", "!**/lib/**/*", "!**/_bundles/**/*"]
-        }),
-        new RawBundlerPlugin({
-            readEncoding: "utf-8",
-            includeFilePathComments: false,
-            allowDuplicatesInBundle: false,
-            printProgress: true,
-            commentTags: {
-                Start: "/* ",
-                End: " */"
-            },
-            bundles: [
-                `${snakeToCamel(packageJson.name)}-vendor.js`
-            ],
-            [`${snakeToCamel(packageJson.name)}-vendor.js`]: [
-                // {
-                //   path: "./relative/path/to/file.ext",
-                //   match: /file.ext/
-                // },
-                // {
-                //   path: "./node_modules/proxy-polyfill/proxy.min.js",
-                //   match: /proxy.min.js/
-                // }
-            ]
         })
     ]
 };

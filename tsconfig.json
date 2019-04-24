@@ -27,17 +27,8 @@
             "dom",
             "es2015"
         ],
-        "typeRoots": [
-            "./node_modules/@types",
-            "./@types"
-        ]
+        "typeRoots": ["./node_modules/@types"]
     },
-    "files": [
-        "./src/index.ts"
-    ],
-    "include": [
-        "src/**/*"
-    ],
     "compileOnSave": false,
     "buildOnSave": false,
     "exclude": [

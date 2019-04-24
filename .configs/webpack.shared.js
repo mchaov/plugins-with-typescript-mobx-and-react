@@ -1,7 +1,6 @@
 const path = require("path");
-const packageJson = require("../package.json");
 const workerThreads = require("./cpuResolver");
-const snakeToCamel = require("./snakeToCamel");
+const resolvePath = x => path.resolve(__dirname, "..", "packages", x, "src")
 
 module.exports = debug => {
     const threadOptions = {
@@ -12,13 +11,25 @@ module.exports = debug => {
     }
     return {
         target: "web",
-        entry: path.resolve(__dirname, "..", "src"),
+        entry: {
+            bl: resolvePath("bl"),
+            view: resolvePath("view"),
+            plugin1: resolvePath("plugin-1"),
+            plugin2: resolvePath("plugin-2")
+        },
         output: {
             path: path.resolve(__dirname, "..", "_bundles"),
-            filename: `${snakeToCamel(packageJson.name)}.js`,
+            filename: `demo_[name].js`,
             libraryTarget: "umd",
-            library: `${snakeToCamel(packageJson.name)}`,
+            library: `demo_[name]`,
             umdNamedDefine: true
+        },
+        externals: {
+            "mobx": "mobx",
+            "react": "React",
+            "react-dom": "ReactDOM",
+            "mobx-utils": "mobxUtils",
+            "mobx-react": "mobxReact"
         },
         resolve: {
             extensions: [".js", ".ts", ".tsx", ".jsx", "json"],
@@ -27,18 +38,18 @@ module.exports = debug => {
             rules: [{
                 test: /\.tsx?$/,
                 use: [{
-                        loader: 'cache-loader'
-                    },
-                    {
-                        loader: 'thread-loader',
-                        options: threadOptions,
-                    },
-                    {
-                        loader: 'ts-loader',
-                        options: {
-                            happyPackMode: true
-                        }
+                    loader: 'cache-loader'
+                },
+                {
+                    loader: 'thread-loader',
+                    options: threadOptions,
+                },
+                {
+                    loader: 'ts-loader',
+                    options: {
+                        happyPackMode: true
                     }
+                }
                 ],
                 exclude: [/node_modules/]
             }],

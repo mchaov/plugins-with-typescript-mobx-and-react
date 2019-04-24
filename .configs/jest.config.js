@@ -15,9 +15,7 @@ module.exports = {
     "setupFiles": [
         path.resolve(process.cwd(), ".configs", "jestsetup.js")
     ],
-    "transformIgnorePatterns": [
-        "node_modules/(?!sb-resp-core|sb-resp-configs)"
-    ],
+    "transformIgnorePatterns": ["node_modules"],
     "transform": {
         ".(ts|tsx)": "ts-jest",
         "^.+\\.js$": "babel-jest"
