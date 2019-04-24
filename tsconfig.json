@@ -1,0 +1,56 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "strict": true,
+        "noImplicitAny": false,
+        "noImplicitThis": false,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitReturns": true,
+        "noUnusedLocals": true,
+        "downlevelIteration": true,
+        "forceConsistentCasingInFileNames": true,
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "outDir": "lib",
+        "removeComments": false,
+        "allowSyntheticDefaultImports": true,
+        "suppressImplicitAnyIndexErrors": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "sourceMap": true,
+        "declaration": true,
+        "declarationMap": true,
+        "resolveJsonModule": false,
+        "allowJs": false,
+        "jsx": "react",
+        "lib": [
+            "dom",
+            "es2015"
+        ],
+        "typeRoots": [
+            "./node_modules/@types",
+            "./@types"
+        ]
+    },
+    "files": [
+        "./src/index.ts"
+    ],
+    "include": [
+        "src/**/*"
+    ],
+    "compileOnSave": false,
+    "buildOnSave": false,
+    "exclude": [
+        ".configs",
+        "node_modules",
+        "lib/**/*",
+        "_bundles/**/*",
+        "lib-esm/**/*",
+        "linter",
+        "coverage",
+        "*.test.*",
+        "src/**/*.js",
+        "**/*.test.tsx",
+        "**/*.test.ts"
+    ]
+}
