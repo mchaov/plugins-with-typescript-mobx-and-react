@@ -1,1 +1,0 @@
-export const myMock = [1, 2, 3]

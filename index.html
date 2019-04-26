@@ -19,9 +19,21 @@
         <div id="app"></div>
 
         <script>
+            // Setup Runtime
+            const MBUS = new EventEmitter();
+        </script>
+
+        <script>
+            var view, bl, plugin1, plugin2;
+
             window.addEventListener("load", () => {
-                var view = new demo_view.View("app");
-                view.activate();
+                setTimeout(() => {
+                    view = new demo_view.View("app", { mBus: MBUS });
+                    view.activate();
+                })
+                setTimeout(() => {
+                    bl = new demo_bl.Bl(MBUS);
+                }, 1500)
             });
         </script>
 

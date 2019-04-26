@@ -1,6 +1,5 @@
 import * as React from "react";
 import { observer } from "mobx-react";
-
 import { UIState } from "../state";
 
 export type UIProps = { state: UIState }
@@ -14,7 +13,9 @@ export class UI extends React.Component<UIProps, UIState> {
 
     render() {
         return (
-            <div className="view">stuff</div>
+            <div className="view">
+                Bl state: {this.state.bl.status}
+            </div>
         )
     }
 }
