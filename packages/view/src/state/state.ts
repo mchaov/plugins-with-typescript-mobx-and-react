@@ -1,7 +1,7 @@
 import { action, observable } from "mobx";
-import { MessageBus, MessageBusChannels, IBl, ComponentStatus } from "../../../contracts";
-export class UIState {
-    mBus: MessageBus
+import { MessageBus, MessageBusChannels, IBl, IComponent, ComponentStatus } from "../../../contracts";
+export class UIState implements IComponent {
+    private mBus: MessageBus
     @observable bl: IBl
     @observable status: ComponentStatus
 
@@ -13,7 +13,7 @@ export class UIState {
             activate: () => { },
             deactivate: () => { },
             status: ComponentStatus.void
-        };
+        } as any;
     }
 
     @action.bound private setBl(x: IBl) {

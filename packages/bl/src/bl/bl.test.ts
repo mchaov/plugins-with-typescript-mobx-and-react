@@ -1,24 +1,26 @@
 import { EventEmitter } from "eventemitter3";
+import { observable, action } from "mobx";
 import { Bl } from "./bl";
-import { ComponentStatus, MessageBusChannels } from "../../../contracts";
+import { ComponentStatus, MessageBusChannels, IPlugin, IBl } from "../../../contracts";
 
 const ee = new EventEmitter();
+var inst: IBl;
+
+beforeEach(() => { inst = new Bl(ee); });
+afterEach(() => { inst = undefined as any; });
 
 describe("Bl", () => {
     it("Bl initializes", () => {
-        const inst = new Bl(ee);
         expect(inst).toBeInstanceOf(Bl);
         expect(inst.status).toBe(ComponentStatus.init);
     });
 
     it("Bl activates", () => {
-        const inst = new Bl(ee);
         inst.activate();
         expect(inst.status).toBe(ComponentStatus.active);
     });
 
     it("Bl deactivates", () => {
-        const inst = new Bl(ee);
         inst.deactivate();
         expect(inst.status).toBe(ComponentStatus.inactive);
     });
@@ -31,5 +33,82 @@ describe("Bl", () => {
 
         new Bl(ee);
         ee.emit(MessageBusChannels.callToRegister);
+    });
+
+    it("Bl plugin registers", done => {
+        const plugin: IPlugin = {
+            activate: () => { },
+            deactivate: () => { },
+            name: "test plugin",
+            status: ComponentStatus.void
+        }
+        expect(inst["plugins"].length).toBe(0);
+
+        ee.emit(MessageBusChannels.register.plugin, plugin);
+        ee.emit(MessageBusChannels.register.plugin, plugin);
+
+        setTimeout(() => {
+            expect(inst["plugins"].length).toBe(1);
+            expect(inst["plugins"][0].name).toBe("test plugin");
+            done();
+        });
+    });
+
+    it("Bl plugin activePlugin: Branch 1 - no active plugin", () => {
+        expect(inst.activePlugin).toBe(undefined);
+    });
+
+    it("Bl plugin activePlugin: Branch 2 - active plugin", () => {
+        const plugin: IPlugin = {
+            activate: () => { },
+            deactivate: () => { },
+            name: "test plugin",
+            status: ComponentStatus.init
+        }
+        const plugin2: IPlugin = {
+            activate: () => { },
+            deactivate: () => { },
+            name: "test plugin 2",
+            status: ComponentStatus.active
+        }
+        expect(inst["plugins"].length).toBe(0);
+
+        ee.emit(MessageBusChannels.register.plugin, plugin);
+        ee.emit(MessageBusChannels.register.plugin, plugin2);
+
+        expect(inst["plugins"].length).toBe(2);
+        expect(inst.activePlugin).toEqual(plugin2);
+    });
+
+    it("Bl plugin activePlugin: Branch 3 - activate/deactivate plugin", () => {
+        const plugin: IPlugin = observable({
+            activate: action(() => { plugin.status = ComponentStatus.active }),
+            deactivate: action(() => { plugin.status = ComponentStatus.inactive }),
+            name: "test plugin",
+            status: ComponentStatus.init
+        })
+        const plugin2: IPlugin = observable({
+            activate: action(() => { plugin2.status = ComponentStatus.active }),
+            deactivate: action(() => { plugin2.status = ComponentStatus.inactive }),
+            name: "test plugin 2",
+            status: ComponentStatus.init
+        });
+
+        ee.emit(MessageBusChannels.register.plugin, plugin);
+        ee.emit(MessageBusChannels.register.plugin, plugin2);
+
+        inst.activatePlugin(plugin.name);
+        expect(inst.activePlugin && inst.activePlugin.name).toEqual(plugin.name);
+
+        inst.activatePlugin(plugin2.name);
+        expect(inst.activePlugin && inst.activePlugin.name).toEqual(plugin2.name);
+
+        inst.activatePlugin(plugin.name);
+        expect(inst.activePlugin && inst.activePlugin.name).toEqual(plugin.name);
+    });
+
+    it("Bl plugin activePlugin: Branch 4 - activate non existing plugin", () => {
+        inst.activatePlugin("something");
+        expect(inst.activePlugin).toEqual(undefined);
     });
 });

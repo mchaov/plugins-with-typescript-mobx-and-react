@@ -9,7 +9,6 @@ describe("UIState", () => {
         const inst = new UIState(ee);
         expect(inst).toBeInstanceOf(UIState);
         expect(inst.status).toBe(ComponentStatus.init);
-        expect(inst.bl.mBus).toBeInstanceOf(EventEmitter);
         expect(inst.bl.status).toBe(ComponentStatus.void);
         expect(typeof inst.bl.activate).toBe("function");
         expect(typeof inst.bl.deactivate).toBe("function");

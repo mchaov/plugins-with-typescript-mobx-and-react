@@ -2,7 +2,7 @@
 export type MessageBus = {
     eventNames(): any[]
     listeners(event: any): Function[]
-    emit(event: any, ...args: Array<any>): void
+    emit(event: any, ...args: any[]): void
     on(event: any, fn: (...args: any[]) => void, context?: any): void
     off(event: any, fn: (...args: any[]) => void, context?: any): void
 }
@@ -22,9 +22,17 @@ export enum ComponentStatus {
     inactive = 2
 }
 
-export interface IBl {
+export interface IComponent {
     activate(): void
     deactivate(): void
-    mBus: MessageBus
     status: ComponentStatus
+}
+
+export interface IBl extends IComponent {
+    activePlugin: IPlugin | undefined
+    activatePlugin: (pluginName: string) => void
+}
+
+export interface IPlugin extends IComponent {
+    name: string
 }
