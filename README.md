@@ -112,7 +112,7 @@ While the plugins are following the provided contract they can have different im
 
 #### Async loading of the packages
 
-Code can be loaded on the page on demand. Async communication via message bus ensures that they can link at any point in time.
+Code can be loaded on the page on demand. Async communication via message bus ensures that components can link at any point in time.
 
 ### How do we control version of the suite?
 
