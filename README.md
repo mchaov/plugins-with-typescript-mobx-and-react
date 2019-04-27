@@ -1,5 +1,7 @@
 - [plugins-with-typescript-mobx-and-react](#plugins-with-typescript-mobx-and-react)
   - [Installation & Running](#installation--running)
+    - [Post compile/test folders](#post-compiletest-folders)
+    - [.configs](#configs)
   - [Overview](#overview)
     - [Why do we need such an architecture?](#why-do-we-need-such-an-architecture)
       - [Reduced regression scope](#reduced-regression-scope)
@@ -21,6 +23,11 @@
       - [jQuery plugin needs](#jquery-plugin-needs)
       - [React plugin needs](#react-plugin-needs)
       - [Vue plugin needs](#vue-plugin-needs)
+    - [<body> section](#body-section)
+      - [Action buttons](#action-buttons)
+      - [main setup](#main-setup)
+      - [entities init](#entities-init)
+      - [bottom scripts section](#bottom-scripts-section)
 
 # plugins-with-typescript-mobx-and-react
 
@@ -42,6 +49,26 @@ Install, build, run:
 3. ```npm run start```, then open [http://localhost:3000](http://localhost:3000)
 
 To run the unit tests ```npm test:coverage``` or ```npm run test```.
+
+### Post compile/test folders
+
+- coverage - contains code coverage report from the unit tests. Created by running the ```npm run test:coverage``` command.
+- _bundles - contains the compiled packages from running either ```npm run build:debug``` or ```npm run build:releaes```.
+
+### .configs
+
+Files - Purpose
+
+- ```cpuResolver.js``` calculates how many cores we can use for the build and test services. Trying to scale as much as possible to yield faster builds. Not needed for the demo, but part of my own building scripts :).
+- ```jest.config.js``` - generic test config for Jest. It is the only reason we have .babelrc in the root folder. Babel is not being used to compile the TS in this project.
+- ```jestsetup.js``` - Enzyme needs some initial setup. In addition I am using it to override ```console.error``` to actually throw. Makes for easier testing.
+- ```sharedPlugins.js``` - configures the ForkTsCheckerWebpackPlugin for the different builds.
+- ```snakeToCamel.js``` - transforms snake-case to camelCase.
+- ```tslint.json``` - my idea of what should be configured for the TypeScript compiler to allow.
+- ```webpack.{shared|debug|release}.js``` - all the magic of the builds happens here:
+  - ```shared``` controls: target, entry, output, externals, resolve and module
+  - ```debug``` changes mode to development and adds plugins related to development
+  - ```release``` changes mode to production and adds plugins related to production
 
 ## Overview
 
@@ -99,10 +126,10 @@ This section explains some of the key decisions with regards to dependencies. It
 The point here is not to explain all of the TypeScript's pros/cons nor compare to other type systems, but focus on why it was the tool of choise.
 
 1. It is very easy to create interfaces only packages.
-1. Static type checks ensure seamless implementation in production code and unit tests.
-1. Easy to transform the code based on browser/module compatibility requirements.
-1. Compile-time code improvements.
-1. Solutions to different code scaling problems which this architecture is aiming to explore.
+2. Static type checks ensure seamless implementation in production code and unit tests.
+3. Easy to transform the code based on browser/module compatibility requirements.
+4. Compile-time code improvements.
+5. Solutions to different code scaling problems which this architecture is aiming to explore.
 
 ### Why MobX
 
@@ -206,27 +233,27 @@ In this section I am going over on what is going on inside ```./index.html``` an
 For faster demo and independance on internet during presentation, all third party scripts and CSS are downloaded in the ```./third-party``` folder.
 
 ```html
-        <!-- runtime -->
-        <script src="/third-party/react.production.min.js"></script>
-        <script src="/third-party/react-dom.production.min.js"></script>
-        <script src="/third-party/mobx.umd.min.js"></script>
-        <script src="/third-party/mobx-utils.umd.js"></script>
-        <script src="/third-party/mobx-react.min.js"></script>
-        <script src="/third-party/eventemitter3.min.js"></script>
+    <!-- runtime -->
+    <script src="/third-party/react.production.min.js"></script>
+    <script src="/third-party/react-dom.production.min.js"></script>
+    <script src="/third-party/mobx.umd.min.js"></script>
+    <script src="/third-party/mobx-utils.umd.js"></script>
+    <script src="/third-party/mobx-react.min.js"></script>
+    <script src="/third-party/eventemitter3.min.js"></script>
 
-        <!-- jQuery plugin needs -->
-        <link rel="stylesheet" href="/third-party/cc_styles.css">
-        <script src="/third-party/jquery-3.4.0.min.js"></script>
-        <script src="/third-party/cc_script.js"></script>
+    <!-- jQuery plugin needs -->
+    <link rel="stylesheet" href="/third-party/cc_styles.css">
+    <script src="/third-party/jquery-3.4.0.min.js"></script>
+    <script src="/third-party/cc_script.js"></script>
 
-        <!-- React plugin needs -->
-        <link rel="stylesheet" href="/third-party/carousel.min.css">
+    <!-- React plugin needs -->
+    <link rel="stylesheet" href="/third-party/carousel.min.css">
 
-        <!-- Vue plugin needs -->
-        <link href="/third-party/vueperslides.css" rel="stylesheet">
-        <link rel="stylesheet" href="/third-party/vue.css">
-        <script src="/third-party/vue.min.js"></script>
-        <script src="/third-party/vueperslides.umd.min.js"></script>
+    <!-- Vue plugin needs -->
+    <link href="/third-party/vueperslides.css" rel="stylesheet">
+    <link rel="stylesheet" href="/third-party/vue.css">
+    <script src="/third-party/vue.min.js"></script>
+    <script src="/third-party/vueperslides.umd.min.js"></script>
 ```
 
 #### runtime
@@ -248,3 +275,81 @@ Please note that the source code for the React plugin is much simpler than the r
 #### Vue plugin needs
 
 I don't know Vue, so it's integration is not much different than the jQuery on. What I see is that if used with TS Vue components could be made injectable in much more robust way. Link to the source of the component - [here](https://www.npmjs.com/package/vueperslides).
+
+### <body> section
+
+Body contains markup for few different purposes.
+
+#### Action buttons
+
+Used to start stop different entities in conjecture with the ```runAction``` function. 
+
+```html
+    <button onclick="runAction('view', 'activate')">Activate view</button>
+    <button onclick="runAction('view', 'deactivate')">Deactivate view</button>
+    <hr />
+```
+
+```javascript
+    function runAction(entity, action) { window[entity][action](); }
+```
+
+#### main setup
+
+Only thing we need here is the message bus instance to pass around.
+
+```javascript
+    const MBUS = new EventEmitter();
+```
+
+#### entities init
+
+For the demo purposes we need access to all entities, thus we setup global vars. In reality these are going to be wrapped inside your module and not be accessible from the global namespace.
+
+```javascript
+  // setup global vars for quick access to all instances
+  var view, bl, plugin1, plugin2, plugin3, plugin4;
+```
+
+WOW, what's with the ```setTimeouts```!?
+
+All the entities are talking in async manner. It doesn't matter in what order we activate them. For the purposes of simulating async/lazy loading on the page the instantiations are wrapped in individual setTimeouts.
+
+Note that below we have plugin1 init before the view and the bl. Plugin2 inits after the view and before the bl. Plugins 3 and 4 init after everything else is running.
+
+```javascript
+    window.addEventListener("load", () => {
+        setTimeout(() => {
+            view = new demo_view.View("app", { mBus: MBUS });
+            view.activate();
+        }, 100)
+        setTimeout(() => {
+            bl = new demo_bl.Bl(MBUS);
+        }, 500)
+        setTimeout(() => {
+            plugin1 = new demo_plugin1.Plugin(MBUS);
+        }, 0)
+        setTimeout(() => {
+            plugin2 = new demo_plugin2.Plugin(MBUS);
+        }, 250)
+        setTimeout(() => {
+            plugin3 = new demo_plugin3.Plugin(MBUS);
+        }, 750)
+        setTimeout(() => {
+            plugin4 = new demo_plugin4.Plugin(MBUS);
+        }, 1000)
+    });
+```
+
+#### bottom scripts section
+
+This section loads all the relevant scripts from the compiled packages.
+
+```html
+    <script async defer src="/_bundles/demo_bl.js"></script>
+    <script async defer src="/_bundles/demo_view.js"></script>
+    <script async defer src="/_bundles/demo_plugin1.js"></script>
+    <script async defer src="/_bundles/demo_plugin2.js"></script>
+    <script async defer src="/_bundles/demo_plugin3.js"></script>
+    <script async defer src="/_bundles/demo_plugin4.js"></script>
+```
