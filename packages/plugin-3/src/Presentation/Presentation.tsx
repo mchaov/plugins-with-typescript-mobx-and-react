@@ -8,6 +8,6 @@ export interface PresentationProps { }
 @observer
 export class Presentation extends React.PureComponent<PresentationProps, PresentationState>{
     render() {
-        return <div><BuildCarousel /></div>
+        return <BuildCarousel />
     }
 }
