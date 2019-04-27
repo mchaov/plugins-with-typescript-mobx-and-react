@@ -61,7 +61,11 @@ export class Plugin implements IPlugin {
 
     @action.bound deactivate() {
         let node = document.getElementById(this.divId);
+        // React renders outside of the current call stack
+        // we need to setup our event listeners afterwards
+        /* istanbul ignore next */
         if (node) {
+            /* istanbul ignore next */
             node.removeEventListener("click", this.clickHandler, true);
         }
         this.api.ui = undefined;
