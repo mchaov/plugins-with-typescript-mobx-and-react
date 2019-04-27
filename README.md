@@ -18,12 +18,12 @@
     - [Bl](#bl)
     - [Plugin](#plugin)
   - [Running the demo](#running-the-demo)
-    - [<head> section](#head-section)
+    - [HEAD section](#head-section)
       - [runtime](#runtime)
       - [jQuery plugin needs](#jquery-plugin-needs)
       - [React plugin needs](#react-plugin-needs)
       - [Vue plugin needs](#vue-plugin-needs)
-    - [<body> section](#body-section)
+    - [BODY section](#body-section)
       - [Action buttons](#action-buttons)
       - [main setup](#main-setup)
       - [entities init](#entities-init)
@@ -228,7 +228,7 @@ After you execute ```npm run start``` and open the browser to the specified addr
 
 In this section I am going over on what is going on inside ```./index.html``` and why.
 
-### <head> section
+### HEAD section
 
 For faster demo and independance on internet during presentation, all third party scripts and CSS are downloaded in the ```./third-party``` folder.
 
@@ -276,7 +276,7 @@ Please note that the source code for the React plugin is much simpler than the r
 
 I don't know Vue, so it's integration is not much different than the jQuery on. What I see is that if used with TS Vue components could be made injectable in much more robust way. Link to the source of the component - [here](https://www.npmjs.com/package/vueperslides).
 
-### <body> section
+### BODY section
 
 Body contains markup for few different purposes.
 
