@@ -35,7 +35,9 @@ export class Plugin implements IPlugin {
     // we will not test calls to browser APIs in this demo
     /* istanbul ignore next */
     private clickHandler(e: Event) {
-        alert(`MY TEXT IS: "${(e.target as HTMLButtonElement).innerHTML}"`)
+        if (e.target && (e.target as HTMLElement).nodeName === "BUTTON") {
+            this.div.innerHTML += `<hr/> added more HTML for some reason! <button type="button">MOAR button</button>`;
+        }
     }
 
     @action.bound activate() {
