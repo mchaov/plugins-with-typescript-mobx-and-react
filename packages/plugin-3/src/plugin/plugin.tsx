@@ -1,7 +1,6 @@
-import * as React from "react";
 import { observable, action } from "mobx";
 import { ComponentStatus, IPlugin, MessageBus, MessageBusChannels, IPluginAPI } from "../../../contracts";
-import { createPresentation, BuildCarousel, render, unmount } from "../helpers";
+import { createPresentation, unmount } from "../helpers";
 
 export class Plugin implements IPlugin {
 
@@ -31,7 +30,6 @@ export class Plugin implements IPlugin {
     @action.bound activate() {
         this.api.ui = createPresentation(this.div);
         this.status = ComponentStatus.active;
-        render(<BuildCarousel />, this.div);
     }
 
     @action.bound deactivate() {

@@ -243,6 +243,8 @@ The CSS and JS were modified a bit because of naming colisions.
 
 First search result in google for [react carousel](https://www.npmjs.com/package/react-responsive-carousel) was used for the React integration demo.
 
+Please note that the source code for the React plugin is much simpler than the rest. The implementation avoids the side effect ridden code and browser API calls that are needed in the other examples.
+
 #### Vue plugin needs
 
 I don't know Vue, so it's integration is not much different than the jQuery on. What I see is that if used with TS Vue components could be made injectable in much more robust way. Link to the source of the component - [here](https://www.npmjs.com/package/vueperslides).

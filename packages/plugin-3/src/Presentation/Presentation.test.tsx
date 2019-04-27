@@ -5,13 +5,13 @@ import { Presentation } from "./Presentation";
 describe("<Presentation />", () => {
 
     it("Presentation renders correctly", () => {
-        const comp = shallow(<Presentation placeholder={document.createElement("div")} />);
+        const comp = shallow(<Presentation />);
         expect(typeof Presentation).toBe("function");
         expect(comp).toMatchSnapshot();
     });
 
     it("Presentation handles no input params", () => {
-        const comp = shallow(<Presentation placeholder={null as any} />);
+        const comp = shallow(<Presentation />);
         expect(comp).toMatchSnapshot();
     });
 });

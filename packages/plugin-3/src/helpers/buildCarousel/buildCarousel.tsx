@@ -14,8 +14,8 @@ export class BuildCarousel extends React.Component<{}, {}>{
                         <p className="legend">Legend 1</p>
                     </div>
                     <div key="2">
-                        <img src="https://loremflickr.com/1280/1000" />
-                        <p className="legend">Legend 2</p>
+                        <img src="https://placeimg.com/640/480/any" />
+                        <p className="legend">Legend 6</p>
                     </div>
                     <div key="3">
                         <img src="http://lorempixel.com/1200/960" />
@@ -31,10 +31,6 @@ export class BuildCarousel extends React.Component<{}, {}>{
                     </div>
                     <div key="6">
                         <img src="/third-party/imgs/placeholder.png" />
-                        <p className="legend">Legend 6</p>
-                    </div>
-                    <div key="7">
-                        <img src="https://placeimg.com/640/480/any" />
                         <p className="legend">Legend 6</p>
                     </div>
                 </Carousel>
