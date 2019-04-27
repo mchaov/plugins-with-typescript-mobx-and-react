@@ -31,14 +31,19 @@
 
 # plugins-with-typescript-mobx-and-react
 
-Plugins based solution for decoupled FE with TypeScript, React, MobX.
+This repository contains an implementation of a reference architecture for plugin based UI. Highlights of this implementation are:
 
-4 variations of plugins are provided in this demo:
+- loosely coupled components via interfaces
+- independent development and deployability
 
-- Direct DOM manipulation
-- jQuery Carousel
-- React Carousel
-- Vue Carousel
+Solution is developed with TypeScript, React, MobX.
+
+Four plugins variations are provided in this repo:
+
+- Direct DOM manipulation (no carousel)
+- [jQuery Carousel](https://albert-cyberhulk.github.io/jQuery-Carousel/example/index.html)
+- [React Carousel](https://www.npmjs.com/package/react-responsive-carousel)
+- [Vue Carousel](https://www.npmjs.com/package/vueperslides)
 
 ## Installation & Running
 
