@@ -166,3 +166,7 @@ Plugin packages in this demo share the following dependencies:
 - [React](https://www.npmjs.com/package/react)
 - [ReactDOM](https://www.npmjs.com/package/react-dom)
 - Interfaces package (inside ```./packages/contracts```)
+
+On Figure 6. you can observe that Plugin provides Presentation following our React integration needs. However inside this Presentation, we have an entity called DIV that is fully controlled based on the business needs. This DIV entity could be controlled with by a jQuery/Vue/React widget.
+
+![Figure 6. Plugin runtime](./docs/ReactPlugins-PluginRuntime.png "Plugin runtime")
