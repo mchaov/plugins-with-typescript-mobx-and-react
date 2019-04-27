@@ -52,8 +52,8 @@ To run the unit tests ```npm test:coverage``` or ```npm run test```.
 
 ### Post compile/test folders
 
-- coverage - contains code coverage report from the unit tests. Created by running the ```npm run test:coverage``` command.
-- _bundles - contains the compiled packages from running either ```npm run build:debug``` or ```npm run build:releaes```.
+- ```./coverage``` - contains code coverage report from the unit tests. Created by running the ```npm run test:coverage``` command.
+- ```./_bundles``` - contains the compiled packages from running either ```npm run build:debug``` or ```npm run build:releaes```.
 
 ### .configs
 
