@@ -12,6 +12,15 @@
         <script src="/third-party/mobx-utils.umd.js"></script>
         <script src="/third-party/mobx-react.min.js"></script>
         <script src="/third-party/eventemitter3.min.js"></script>
+
+        <!-- jQuery plugin needs -->
+        <link rel="stylesheet" href="/third-party/cc_styles.css">
+        <script src="/third-party/jquery-3.4.0.min.js"></script>
+        <script src="/third-party/cc_script.js"></script>
+
+        <!-- React plugin needs -->
+        <link rel="stylesheet" href="/third-party/carousel.min.css">
+
     </head>
 
     <body>
@@ -29,7 +38,7 @@
         </script>
 
         <script>
-            var view, bl, plugin1, plugin2;
+            var view, bl, plugin1, plugin2, plugin3;
 
             window.addEventListener("load", () => {
                 setTimeout(() => {
@@ -45,6 +54,9 @@
                 setTimeout(() => {
                     plugin2 = new demo_plugin2.Plugin(MBUS);
                 }, 1500)
+                setTimeout(() => {
+                    plugin3 = new demo_plugin3.Plugin(MBUS);
+                }, 1000)
             });
         </script>
 
@@ -52,6 +64,7 @@
         <script async defer src="./_bundles/demo_view.js"></script>
         <script async defer src="./_bundles/demo_plugin1.js"></script>
         <script async defer src="./_bundles/demo_plugin2.js"></script>
+        <script async defer src="./_bundles/demo_plugin3.js"></script>
     </body>
 
 </html>

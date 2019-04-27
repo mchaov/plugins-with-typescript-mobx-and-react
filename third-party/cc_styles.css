@@ -1,0 +1,122 @@
+/*=====================Main styles ====================*/
+.cc_galleryWrapper {
+  height: 260px;
+  max-width: 1440px;
+  display: block;
+  overflow: hidden;
+  margin: 0 auto;
+  border-top: #64646e 2px solid;
+  border-bottom: #64646e 2px solid;
+}
+
+.cc_dynamic {
+  width: 100%;
+  position: relative;
+  height: 240px;
+  display: block;
+  overflow: hidden;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.cc_leftDirection {
+  width: 42px;
+  height: 86px;
+  display: block;
+  background-image: url(/third-party/imgs/arrow_left.png);
+  background-repeat: no-repeat;
+  cursor: pointer;
+  position: absolute;
+  z-index: 1000;
+  margin-top: 75px;
+  margin-left: 20px;
+}
+
+.cc_leftDirection:hover {
+  background-image: url(/third-party/imgs/arrow_left.png);
+  background-repeat: no-repeat;
+}
+
+.cc_rightDirection {
+  width: 42px;
+  height: 86px;
+  display: block;
+  background-image: url(/third-party/imgs/arrow_right.png);
+  background-repeat: no-repeat;
+  cursor: pointer;
+  position: absolute;
+  z-index: 1000;
+  right: 1%;
+  margin-top: 75px;
+}
+
+.cc_rightDirection:hover {
+  background-image: url(/third-party/imgs/arrow_right_hover.png);
+  background-repeat: no-repeat;
+}
+
+.cc_slider {
+  margin-left: 50px;
+  width: 100%;
+  height: auto;
+  position: relative;
+  overflow: hidden;
+  display: block;
+}
+
+.cc_image {
+  height: auto;
+  width: 7%;
+  display: block;
+  float: left;
+  overflow: hidden;
+}
+
+.cc_image img {
+  display: block;
+  max-width: 100%;
+  border: #64646e 2px solid;
+  height: auto;
+  width: 100%;
+  cursor: pointer;
+}
+
+@media (max-width: 480px) {
+  .cc_galleryWrapper {
+    width: 315px;
+  }
+
+  .cc_slider {
+    margin: 0;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+  .cc_galleryWrapper {
+    width: 100%;
+  }
+
+  .cc_slider {
+    margin: 0;
+  }
+}
+
+@media (min-width: 767px) and (max-width: 992px) {
+  .cc_galleryWrapper {
+    width: 645px;
+  }
+
+  .cc_slider {
+    margin: 0;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1200px) {
+  .cc_galleryWrapper {
+    width: 975px;
+  }
+
+  .cc_slider {
+    margin: 0;
+  }
+}
