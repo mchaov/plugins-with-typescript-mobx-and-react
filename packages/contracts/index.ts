@@ -8,7 +8,8 @@ export type MessageBus = {
 }
 
 export const MessageBusChannels = {
-    callToRegister: "CallToRegister",
+    callToRegisterBl: "CallToRegisterBl",
+    callToRegisterPlugins: "CallToRegisterPlugins",
     register: {
         bl: "Register.Bl",
         plugin: "Register.Plugin",
@@ -29,10 +30,16 @@ export interface IComponent {
 }
 
 export interface IBl extends IComponent {
+    availablePlugins: string[]
     activePlugin: IPlugin | undefined
     activatePlugin: (pluginName: string) => void
 }
 
+export interface IPluginAPI {
+    ui: JSX.Element | undefined
+}
+
 export interface IPlugin extends IComponent {
     name: string
+    api: IPluginAPI
 }

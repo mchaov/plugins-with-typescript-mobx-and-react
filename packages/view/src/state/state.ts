@@ -11,21 +11,22 @@ export class UIState implements IComponent {
         this.bl = {
             mBus,
             activate: () => { },
+            availablePlugins: [],
             deactivate: () => { },
+            activePlugin: undefined,
+            activatePlugin: () => { },
             status: ComponentStatus.void
-        } as any;
+        } as IBl;
     }
 
-    @action.bound private setBl(x: IBl) {
-        this.bl = x;
-    }
+    @action.bound private setBl(x: IBl) { this.bl = x; }
 
     activate() {
         if (this.status !== ComponentStatus.active) {
             this.status = ComponentStatus.active;
             this.bl.activate();
             this.mBus.on(MessageBusChannels.register.bl, this.setBl)
-            this.mBus.emit(MessageBusChannels.callToRegister);
+            this.mBus.emit(MessageBusChannels.callToRegisterBl);
         }
     }
 

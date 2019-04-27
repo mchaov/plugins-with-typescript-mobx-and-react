@@ -30,6 +30,6 @@ describe("Plugin", () => {
         });
 
         new Plugin(ee);
-        ee.emit(MessageBusChannels.callToRegister);
+        ee.emit(MessageBusChannels.callToRegisterPlugins);
     });
 });

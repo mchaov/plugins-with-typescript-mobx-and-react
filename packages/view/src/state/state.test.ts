@@ -3,33 +3,40 @@ import { ComponentStatus, MessageBusChannels } from "../../../contracts";
 import { EventEmitter } from "eventemitter3";
 
 const ee = new EventEmitter();
+var inst: UIState = undefined as any;
+
+beforeAll(() => { inst = new UIState(ee); });
+afterAll(() => { inst = undefined as any; });
 
 describe("UIState", () => {
     it("UIState instantiates", () => {
-        const inst = new UIState(ee);
         expect(inst).toBeInstanceOf(UIState);
         expect(inst.status).toBe(ComponentStatus.init);
+
+        expect(inst.bl.activePlugin).toBe(undefined);
+        expect(inst.bl.availablePlugins.length).toBe(0);
         expect(inst.bl.status).toBe(ComponentStatus.void);
+
         expect(typeof inst.bl.activate).toBe("function");
         expect(typeof inst.bl.deactivate).toBe("function");
+        expect(typeof inst.bl.activatePlugin).toBe("function");
+        
+        expect(inst.bl.activate()).toBe(undefined);
+        expect(inst.bl.deactivate()).toBe(undefined);
+        expect(inst.bl.activatePlugin("")).toBe(undefined);
     });
 
     it("UIState activates", () => {
-        const inst = new UIState(ee);
         inst.activate();
         expect(inst.status).toBe(ComponentStatus.active);
     });
 
     it("UIState deactivates", () => {
-        const inst = new UIState(ee);
         inst.deactivate();
         expect(inst.status).toBe(ComponentStatus.inactive);
     });
 
-
-
     it("UIState listens for Bl register messages", done => {
-        const inst = new UIState(ee);
         inst.activate();
 
         ee.emit(MessageBusChannels.register.bl, {
@@ -54,10 +61,8 @@ describe("UIState", () => {
 
         inst.activate();
         inst.activate();
-        inst.activate();
         expect(actMock).toHaveBeenCalledTimes(1);
 
-        inst.deactivate();
         inst.deactivate();
         inst.deactivate();
         expect(deactMock).toHaveBeenCalledTimes(1);

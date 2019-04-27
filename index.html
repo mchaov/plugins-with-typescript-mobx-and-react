@@ -30,10 +30,13 @@
                 setTimeout(() => {
                     view = new demo_view.View("app", { mBus: MBUS });
                     view.activate();
-                })
+                }, 0)
                 setTimeout(() => {
                     bl = new demo_bl.Bl(MBUS);
-                }, 1500)
+                }, 500)
+                setTimeout(() => {
+                    plugin1 = new demo_plugin1.Plugin(MBUS);
+                }, 250)
             });
         </script>
 

@@ -4,25 +4,26 @@ import { MessageBus, MessageBusChannels, ComponentStatus, IBl, IPlugin } from ".
 export class Bl implements IBl {
     private mBus: MessageBus
     @observable status: ComponentStatus
-    @observable.ref private plugins: IPlugin[]
+    @observable private plugins: IPlugin[]
 
     constructor(mBus: MessageBus) {
         this.mBus = mBus;
         this.plugins = [];
         this.status = ComponentStatus.init;
-        this.mBus.on(MessageBusChannels.callToRegister, this.callToRegister, this);
+        this.mBus.on(MessageBusChannels.callToRegisterBl, this.callToRegister, this);
         this.mBus.on(MessageBusChannels.register.plugin, this.registerPlugin);
         this.callToRegister();
     }
 
     @action.bound private registerPlugin(plugin: IPlugin) {
-        if (this.plugins.indexOf(plugin) === -1) {
+        if (this.plugins.filter(x => x.name === plugin.name).length === 0) {
             this.plugins.push(plugin);
         }
     }
 
     private callToRegister() {
         this.mBus.emit(MessageBusChannels.register.bl, this);
+        this.mBus.emit(MessageBusChannels.callToRegisterPlugins);
     }
 
     @action.bound activate() {
@@ -43,6 +44,10 @@ export class Bl implements IBl {
         if (p) {
             p.activate();
         }
+    }
+
+    @computed get availablePlugins() {
+        return this.plugins.map(x => x.name);
     }
 
     @computed get activePlugin() {

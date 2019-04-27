@@ -32,14 +32,15 @@ describe("Bl", () => {
         });
 
         new Bl(ee);
-        ee.emit(MessageBusChannels.callToRegister);
+        ee.emit(MessageBusChannels.callToRegisterBl);
     });
 
     it("Bl plugin registers", done => {
         const plugin: IPlugin = {
             activate: () => { },
-            deactivate: () => { },
             name: "test plugin",
+            deactivate: () => { },
+            api: { ui: undefined },
             status: ComponentStatus.void
         }
         expect(inst["plugins"].length).toBe(0);
@@ -61,14 +62,16 @@ describe("Bl", () => {
     it("Bl plugin activePlugin: Branch 2 - active plugin", () => {
         const plugin: IPlugin = {
             activate: () => { },
-            deactivate: () => { },
             name: "test plugin",
+            deactivate: () => { },
+            api: { ui: undefined },
             status: ComponentStatus.init
         }
         const plugin2: IPlugin = {
             activate: () => { },
             deactivate: () => { },
             name: "test plugin 2",
+            api: { ui: undefined },
             status: ComponentStatus.active
         }
         expect(inst["plugins"].length).toBe(0);
@@ -84,12 +87,14 @@ describe("Bl", () => {
         const plugin: IPlugin = observable({
             activate: action(() => { plugin.status = ComponentStatus.active }),
             deactivate: action(() => { plugin.status = ComponentStatus.inactive }),
+            api: { ui: undefined },
             name: "test plugin",
             status: ComponentStatus.init
         })
         const plugin2: IPlugin = observable({
             activate: action(() => { plugin2.status = ComponentStatus.active }),
             deactivate: action(() => { plugin2.status = ComponentStatus.inactive }),
+            api: { ui: undefined },
             name: "test plugin 2",
             status: ComponentStatus.init
         });
@@ -110,5 +115,28 @@ describe("Bl", () => {
     it("Bl plugin activePlugin: Branch 4 - activate non existing plugin", () => {
         inst.activatePlugin("something");
         expect(inst.activePlugin).toEqual(undefined);
+    });
+
+    it("Bl availablePlugins", () => {
+        expect(inst.availablePlugins.length).toBe(0);
+        const plugin: IPlugin = observable({
+            activate: action(() => { plugin.status = ComponentStatus.active }),
+            deactivate: action(() => { plugin.status = ComponentStatus.inactive }),
+            api: { ui: undefined },
+            name: "test plugin",
+            status: ComponentStatus.init
+        })
+        const plugin2: IPlugin = observable({
+            activate: action(() => { plugin2.status = ComponentStatus.active }),
+            deactivate: action(() => { plugin2.status = ComponentStatus.inactive }),
+            api: { ui: undefined },
+            name: "test plugin 2",
+            status: ComponentStatus.init
+        });
+
+        ee.emit(MessageBusChannels.register.plugin, plugin);
+        ee.emit(MessageBusChannels.register.plugin, plugin2);
+
+        expect(inst.availablePlugins.length).toBe(2);
     });
 });
