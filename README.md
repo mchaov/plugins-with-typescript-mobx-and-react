@@ -41,4 +41,18 @@ For interfaces version 1.0.0, we ship packages starting with 1.
 
 Other versioning approaches are also available.
 
-## 
+## Tech stack
+
+### Why TypeScript
+
+### Why MobX
+
+### Why React
+
+## Detailed design
+
+### View
+
+### Bl
+
+### Plugin
