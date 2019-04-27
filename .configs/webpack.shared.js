@@ -31,7 +31,8 @@ module.exports = debug => {
             "react": "React",
             "react-dom": "ReactDOM",
             "mobx-utils": "mobxUtils",
-            "mobx-react": "mobxReact"
+            "mobx-react": "mobxReact",
+            "eventemitter3": "EventEmitter"
         },
         resolve: {
             extensions: [".js", ".ts", ".tsx", ".jsx", "json"],

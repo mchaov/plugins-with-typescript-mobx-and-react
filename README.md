@@ -15,6 +15,12 @@
     - [View](#view)
     - [Bl](#bl)
     - [Plugin](#plugin)
+  - [Running the demo](#running-the-demo)
+    - [<head> section](#head-section)
+      - [runtime](#runtime)
+      - [jQuery plugin needs](#jquery-plugin-needs)
+      - [React plugin needs](#react-plugin-needs)
+      - [Vue plugin needs](#vue-plugin-needs)
 
 # plugins-with-typescript-mobx-and-react
 
@@ -188,3 +194,55 @@ Plugin packages in this demo share the following dependencies:
 On Figure 6. you can observe that Plugin provides Presentation following our React integration needs. However inside this Presentation, we have an entity called DIV that is fully controlled based on the business needs. This DIV entity could be controlled with by a jQuery/Vue/React widget.
 
 ![Figure 6. Plugin runtime](./docs/ReactPlugins-PluginRuntime.png "Plugin runtime")
+
+## Running the demo
+
+After you execute ```npm run start``` and open the browser to the specified address you are going to see a working demo of the code.
+
+In this section I am going over on what is going on inside ```./index.html``` and why.
+
+### <head> section
+
+For faster demo and independance on internet during presentation, all third party scripts and CSS are downloaded in the ```./third-party``` folder.
+
+```html
+        <!-- runtime -->
+        <script src="/third-party/react.production.min.js"></script>
+        <script src="/third-party/react-dom.production.min.js"></script>
+        <script src="/third-party/mobx.umd.min.js"></script>
+        <script src="/third-party/mobx-utils.umd.js"></script>
+        <script src="/third-party/mobx-react.min.js"></script>
+        <script src="/third-party/eventemitter3.min.js"></script>
+
+        <!-- jQuery plugin needs -->
+        <link rel="stylesheet" href="/third-party/cc_styles.css">
+        <script src="/third-party/jquery-3.4.0.min.js"></script>
+        <script src="/third-party/cc_script.js"></script>
+
+        <!-- React plugin needs -->
+        <link rel="stylesheet" href="/third-party/carousel.min.css">
+
+        <!-- Vue plugin needs -->
+        <link href="/third-party/vueperslides.css" rel="stylesheet">
+        <link rel="stylesheet" href="/third-party/vue.css">
+        <script src="/third-party/vue.min.js"></script>
+        <script src="/third-party/vueperslides.umd.min.js"></script>
+```
+
+#### runtime
+
+This section has all the main dependencies needed for the code to run. All of them are excluded inside the ```./configs/webpack.shared.js```
+
+#### jQuery plugin needs
+
+Random carousel plugin I found via google. Original code resides on [this link](https://albert-cyberhulk.github.io/jQuery-Carousel/example/index.html).
+
+The CSS and JS were modified a bit because of naming colisions.
+
+#### React plugin needs
+
+First search result in google for [react carousel](https://www.npmjs.com/package/react-responsive-carousel) was used for the React integration demo.
+
+#### Vue plugin needs
+
+I don't know Vue, so it's integration is not much different than the jQuery on. What I see is that if used with TS Vue components could be made injectable in much more robust way. Link to the source of the component - [here](https://www.npmjs.com/package/vueperslides).
