@@ -27,11 +27,16 @@ export class Bl implements IBl {
     }
 
     @action.bound activate() {
-        this.status = ComponentStatus.active;
+        if (this.status !== ComponentStatus.active) {
+            this.status = ComponentStatus.active;
+        }
     }
 
     @action.bound deactivate() {
-        this.status = ComponentStatus.inactive;
+        if (this.status !== ComponentStatus.inactive) {
+            this.deactivatePlugins();
+            this.status = ComponentStatus.inactive;
+        }
     }
 
     @action.bound deactivatePlugins() {

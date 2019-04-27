@@ -19,7 +19,10 @@ export class UIState implements IComponent {
         } as IBl;
     }
 
-    @action.bound private setBl(x: IBl) { this.bl = x; }
+    @action.bound private setBl(x: IBl) {
+        this.bl = x;
+        this.bl.activate();
+    }
 
     activate() {
         if (this.status !== ComponentStatus.active) {

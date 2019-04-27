@@ -20,7 +20,7 @@ describe("UIState", () => {
         expect(typeof inst.bl.activate).toBe("function");
         expect(typeof inst.bl.deactivate).toBe("function");
         expect(typeof inst.bl.activatePlugin).toBe("function");
-        
+
         expect(inst.bl.activate()).toBe(undefined);
         expect(inst.bl.deactivate()).toBe(undefined);
         expect(inst.bl.activatePlugin("")).toBe(undefined);
@@ -38,15 +38,17 @@ describe("UIState", () => {
 
     it("UIState listens for Bl register messages", done => {
         inst.activate();
+        const actMock = jest.fn();
 
         ee.emit(MessageBusChannels.register.bl, {
             mBus: ee,
-            activate: () => { },
+            activate: actMock,
             deactivate: () => { },
             status: ComponentStatus.init
         });
 
         setTimeout(() => {
+            expect(actMock).toHaveBeenCalledTimes(1);
             expect(inst.bl.status).toBe(ComponentStatus.init);
             done();
         }, 0);

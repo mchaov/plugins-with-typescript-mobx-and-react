@@ -17,10 +17,12 @@ describe("Bl", () => {
 
     it("Bl activates", () => {
         inst.activate();
+        inst.activate();
         expect(inst.status).toBe(ComponentStatus.active);
     });
 
     it("Bl deactivates", () => {
+        inst.deactivate();
         inst.deactivate();
         expect(inst.status).toBe(ComponentStatus.inactive);
     });
@@ -110,6 +112,9 @@ describe("Bl", () => {
 
         inst.activatePlugin(plugin.name);
         expect(inst.activePlugin && inst.activePlugin.name).toEqual(plugin.name);
+        
+        inst.deactivate();
+        expect(inst.activePlugin).toEqual(undefined);
     });
 
     it("Bl plugin activePlugin: Branch 4 - activate non existing plugin", () => {
