@@ -230,7 +230,11 @@ In this section I am going over on what is going on inside ```./index.html``` an
 
 ### HEAD section
 
-For faster demo and independance on internet during presentation, all third party scripts and CSS are downloaded in the ```./third-party``` folder.
+For faster demo and independence on internet during presentation, all third party scripts and CSS are downloaded in the ```./third-party``` folder.
+
+#### runtime
+
+This section has all the main dependencies needed for the code to run. All of them are excluded inside the ```./configs/webpack.shared.js```
 
 ```html
     <!-- runtime -->
@@ -240,25 +244,7 @@ For faster demo and independance on internet during presentation, all third part
     <script src="/third-party/mobx-utils.umd.js"></script>
     <script src="/third-party/mobx-react.min.js"></script>
     <script src="/third-party/eventemitter3.min.js"></script>
-
-    <!-- jQuery plugin needs -->
-    <link rel="stylesheet" href="/third-party/cc_styles.css">
-    <script src="/third-party/jquery-3.4.0.min.js"></script>
-    <script src="/third-party/cc_script.js"></script>
-
-    <!-- React plugin needs -->
-    <link rel="stylesheet" href="/third-party/carousel.min.css">
-
-    <!-- Vue plugin needs -->
-    <link href="/third-party/vueperslides.css" rel="stylesheet">
-    <link rel="stylesheet" href="/third-party/vue.css">
-    <script src="/third-party/vue.min.js"></script>
-    <script src="/third-party/vueperslides.umd.min.js"></script>
 ```
-
-#### runtime
-
-This section has all the main dependencies needed for the code to run. All of them are excluded inside the ```./configs/webpack.shared.js```
 
 #### jQuery plugin needs
 
@@ -266,15 +252,35 @@ Random carousel plugin I found via google. Original code resides on [this link](
 
 The CSS and JS were modified a bit because of naming colisions.
 
+```html
+    <!-- jQuery plugin needs -->
+    <link rel="stylesheet" href="/third-party/cc_styles.css">
+    <script src="/third-party/jquery-3.4.0.min.js"></script>
+    <script src="/third-party/cc_script.js"></script>
+```
+
 #### React plugin needs
 
 First search result in google for [react carousel](https://www.npmjs.com/package/react-responsive-carousel) was used for the React integration demo.
 
 Please note that the source code for the React plugin is much simpler than the rest. The implementation avoids the side effect ridden code and browser API calls that are needed in the other examples.
 
+```html
+    <!-- React plugin needs -->
+    <link rel="stylesheet" href="/third-party/carousel.min.css">
+```
+
 #### Vue plugin needs
 
 I don't know Vue, so it's integration is not much different than the jQuery on. What I see is that if used with TS Vue components could be made injectable in much more robust way. Link to the source of the component - [here](https://www.npmjs.com/package/vueperslides).
+
+```html
+    <!-- Vue plugin needs -->
+    <link href="/third-party/vueperslides.css" rel="stylesheet">
+    <link rel="stylesheet" href="/third-party/vue.css">
+    <script src="/third-party/vue.min.js"></script>
+    <script src="/third-party/vueperslides.umd.min.js"></script>
+```
 
 ### BODY section
 
