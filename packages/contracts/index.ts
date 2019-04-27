@@ -17,10 +17,10 @@ export const MessageBusChannels = {
 }
 
 export enum ComponentStatus {
-    init = 0,
-    void = -1,
-    active = 1,
-    inactive = 2
+    void = "void",
+    init = "initialized",
+    active = "activated",
+    inactive = "deactivated"
 }
 
 export interface IComponent {

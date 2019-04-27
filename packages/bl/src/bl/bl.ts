@@ -39,9 +39,7 @@ export class Bl implements IBl {
         }
     }
 
-    @action.bound deactivatePlugins() {
-        this.plugins.forEach(x => x.deactivate());
-    }
+    @action.bound deactivatePlugins() { this.plugins.forEach(x => x.deactivate()); }
 
     @action.bound activatePlugin(pluginName: string) {
         this.deactivatePlugins();
@@ -51,9 +49,7 @@ export class Bl implements IBl {
         }
     }
 
-    @computed get availablePlugins() {
-        return this.plugins.map(x => x.name);
-    }
+    @computed get availablePlugins() { return this.plugins.map(x => x.name); }
 
     @computed get activePlugin() {
         return this.plugins.filter(x => x.status === ComponentStatus.active)[0];

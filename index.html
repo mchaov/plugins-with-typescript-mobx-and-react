@@ -15,12 +15,17 @@
     </head>
 
     <body>
+        <button onclick="runAction('view', 'activate')">Activate view</button>
+        <button onclick="runAction('view', 'deactivate')">Deactivate view</button>
+
+        <hr />
 
         <div id="app"></div>
 
         <script>
             // Setup Runtime
             const MBUS = new EventEmitter();
+            function runAction(entity, action) { window[entity][action](); }
         </script>
 
         <script>
