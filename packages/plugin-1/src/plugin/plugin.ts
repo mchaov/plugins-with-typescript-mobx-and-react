@@ -10,6 +10,7 @@ export class Plugin implements IPlugin {
 
     private mBus: MessageBus
     private div: HTMLDivElement
+    private divId: string
 
     constructor(mBus: MessageBus) {
         this.mBus = mBus;
@@ -17,8 +18,11 @@ export class Plugin implements IPlugin {
         this.api = { ui: undefined };
         this.status = ComponentStatus.init;
 
+        this.divId = `plugin1-${Date.now()}`;
         this.div = document.createElement("div");
-        this.div.innerHTML = `${this.name} view is active now!`;
+        this.div.id = this.divId;
+
+        this.clickHandler = this.clickHandler.bind(this);
 
         this.mBus.on(MessageBusChannels.callToRegisterPlugins, this.callToRegister, this);
         this.callToRegister();
@@ -28,12 +32,36 @@ export class Plugin implements IPlugin {
         this.mBus.emit(MessageBusChannels.register.plugin, this);
     }
 
+    // we will not test calls to browser APIs in this demo
+    /* istanbul ignore next */
+    private clickHandler(e: Event) {
+        alert(`MY TEXT IS: "${(e.target as HTMLButtonElement).innerHTML}"`)
+    }
+
     @action.bound activate() {
+        this.div.innerHTML = `
+            ${this.name} view is active now!
+            <button type="button">test button</button>
+        `;
         this.api.ui = createPresentation(this.div);
         this.status = ComponentStatus.active;
+
+        // React renders outside of the current call stack
+        // we need to setup our event listeners afterwards
+        /* istanbul ignore next */
+        setTimeout(/* istanbul ignore next */() => {
+            let node = document.getElementById(this.divId);
+            if (node) {
+                node.addEventListener("click", this.clickHandler, true);
+            }
+        });
     }
 
     @action.bound deactivate() {
+        let node = document.getElementById(this.divId);
+        if (node) {
+            node.removeEventListener("click", this.clickHandler, true);
+        }
         this.api.ui = undefined;
         this.status = ComponentStatus.inactive;
     }
