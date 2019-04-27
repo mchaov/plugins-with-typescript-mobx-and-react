@@ -14,12 +14,11 @@ export class Plugin implements IPlugin {
 
     constructor(mBus: MessageBus) {
         this.mBus = mBus;
-        this.name = "Plugin 3 - React Carousel";
+        this.name = "Plugin 3";
         this.api = { ui: undefined };
         this.status = ComponentStatus.init;
 
         this.div = document.createElement("div");
-        this.div.innerHTML = `${this.name} view is active now!`;
 
         this.mBus.on(MessageBusChannels.callToRegisterPlugins, this.callToRegister, this);
         this.callToRegister();

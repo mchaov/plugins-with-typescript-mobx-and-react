@@ -19,6 +19,13 @@
 
 Plugins based solution for decoupled FE with TypeScript, React, MobX.
 
+4 variations of plugins are provided in this demo:
+
+- Direct DOM manipulation
+- jQuery Carousel
+- React Carousel
+- Vue Carousel
+
 ## Overview
 
 ![Figure 1. Architecture overview](./docs/ReactPlugins-Overview.png "Architecture overview")

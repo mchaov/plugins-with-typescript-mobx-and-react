@@ -13,12 +13,11 @@ export class Plugin implements IPlugin {
 
     constructor(mBus: MessageBus) {
         this.mBus = mBus;
-        this.name = "Plugin 2";
+        this.name = "Plugin 4";
         this.api = { ui: undefined };
         this.status = ComponentStatus.init;
 
         this.div = document.createElement("div");
-        this.div.className = "cc_ccCarousel";
 
         this.mBus.on(MessageBusChannels.callToRegisterPlugins, this.callToRegister, this);
         this.callToRegister();
@@ -29,29 +28,8 @@ export class Plugin implements IPlugin {
     }
 
     @action.bound activate() {
-        this.status = ComponentStatus.active;
         this.api.ui = createPresentation(this.div);
-        this.div.innerHTML = `
-        <h2>jQuery Carousel FTW!</h2>
-        <div class="cc_galleryWrapper">
-            <div class="cc_dynamic">
-                <div class="cc_leftDirection"></div>
-                <div class="cc_rightDirection"></div>
-                <div class="cc_slider">
-                    ${new Array(13)
-                .fill(0)
-                .map(() => `<div class="cc_image"><img src="/third-party/imgs/placeholder.png"></div>`).join("")}
-                </div>
-            </div>
-        </div>`;
-
-        // no reason to cover this with tests for the demo
-        // it is not realistic implementation, no one is using
-        // jQuery after 2016 :) :) :)
-        /* istanbul ignore next */
-        setTimeout(/* istanbul ignore next */() => {
-            window["$"](".cc_galleryWrapper").ccCarousel({});
-        })
+        this.status = ComponentStatus.active;
     }
 
     @action.bound deactivate() {
