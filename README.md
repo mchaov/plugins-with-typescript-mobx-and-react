@@ -287,7 +287,6 @@ Used to start stop different entities in conjecture with the ```runAction``` fun
 ```html
     <button onclick="runAction('view', 'activate')">Activate view</button>
     <button onclick="runAction('view', 'deactivate')">Deactivate view</button>
-    <hr />
 ```
 
 ```javascript
