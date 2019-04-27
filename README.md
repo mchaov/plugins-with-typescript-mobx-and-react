@@ -33,7 +33,7 @@ Install, build, run:
 
 1. ```npm install```
 2. ```npm run build:debug``` or ```npm run build:release```
-3. ```npm run start```
+3. ```npm run start```, then open [http://localhost:3000](http://localhost:3000)
 
 To run the unit tests ```npm test:coverage``` or ```npm run test```.
 
