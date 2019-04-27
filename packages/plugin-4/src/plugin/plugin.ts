@@ -18,6 +18,7 @@ export class Plugin implements IPlugin {
         this.status = ComponentStatus.init;
 
         this.div = document.createElement("div");
+        this.div.className = "cc_ccCarousel";
 
         this.mBus.on(MessageBusChannels.callToRegisterPlugins, this.callToRegister, this);
         this.callToRegister();
@@ -28,8 +29,22 @@ export class Plugin implements IPlugin {
     }
 
     @action.bound activate() {
-        this.api.ui = createPresentation(this.div);
         this.status = ComponentStatus.active;
+        this.api.ui = createPresentation(this.div);
+        this.div.innerHTML = `
+        <h2>Vue Carousel :D :D :D</h2>
+        <div id="vueCarousel" class="vueCarousel">
+            <vueper-slides :slide-ratio="1/4">
+                <vueper-slide v-for="i in 5" :key="i" :title="i.toString()"></vueper-slide>
+            </vueper-slides>
+        </div>`;
+
+        // no reason to cover this with tests for the demo
+        // it is not realistic implementation, no one is using
+        /* istanbul ignore next */
+        setTimeout(/* istanbul ignore next */() => {
+            new window["Vue"]({ el: "#vueCarousel" });
+        })
     }
 
     @action.bound deactivate() {

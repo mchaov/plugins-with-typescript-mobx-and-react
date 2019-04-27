@@ -16,7 +16,8 @@ module.exports = debug => {
             view: resolvePath("view"),
             plugin1: resolvePath("plugin-1"),
             plugin2: resolvePath("plugin-2"),
-            plugin3: resolvePath("plugin-3")
+            plugin3: resolvePath("plugin-3"),
+            plugin4: resolvePath("plugin-4"),
         },
         output: {
             path: path.resolve(__dirname, "..", "_bundles"),

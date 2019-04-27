@@ -13,7 +13,7 @@ export class Plugin implements IPlugin {
 
     constructor(mBus: MessageBus) {
         this.mBus = mBus;
-        this.name = "Plugin 1 - direct DOM manipulation";
+        this.name = "Plugin 1";
         this.api = { ui: undefined };
         this.status = ComponentStatus.init;
 

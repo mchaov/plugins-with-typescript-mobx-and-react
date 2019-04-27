@@ -20,6 +20,12 @@
 
         <!-- React plugin needs -->
         <link rel="stylesheet" href="/third-party/carousel.min.css">
+        
+        <!-- Vue plugin needs -->
+        <link href="/third-party/vueperslides.css" rel="stylesheet">
+        <link rel="stylesheet" href="/third-party/vue.css">
+        <script src="/third-party/vue.min.js"></script>
+        <script src="/third-party/vueperslides.umd.min.js"></script>
 
     </head>
 
@@ -38,7 +44,7 @@
         </script>
 
         <script>
-            var view, bl, plugin1, plugin2, plugin3;
+            var view, bl, plugin1, plugin2, plugin3, plugin4;
 
             window.addEventListener("load", () => {
                 setTimeout(() => {
@@ -53,18 +59,22 @@
                 }, 250)
                 setTimeout(() => {
                     plugin2 = new demo_plugin2.Plugin(MBUS);
-                }, 1500)
+                }, 650)
                 setTimeout(() => {
                     plugin3 = new demo_plugin3.Plugin(MBUS);
+                }, 800)
+                setTimeout(() => {
+                    plugin4 = new demo_plugin4.Plugin(MBUS);
                 }, 1000)
             });
         </script>
 
-        <script async defer src="./_bundles/demo_bl.js"></script>
-        <script async defer src="./_bundles/demo_view.js"></script>
-        <script async defer src="./_bundles/demo_plugin1.js"></script>
-        <script async defer src="./_bundles/demo_plugin2.js"></script>
-        <script async defer src="./_bundles/demo_plugin3.js"></script>
+        <script async defer src="/_bundles/demo_bl.js"></script>
+        <script async defer src="/_bundles/demo_view.js"></script>
+        <script async defer src="/_bundles/demo_plugin1.js"></script>
+        <script async defer src="/_bundles/demo_plugin2.js"></script>
+        <script async defer src="/_bundles/demo_plugin3.js"></script>
+        <script async defer src="/_bundles/demo_plugin4.js"></script>
     </body>
 
 </html>
