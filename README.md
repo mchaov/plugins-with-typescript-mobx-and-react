@@ -1,4 +1,5 @@
 - [plugins-with-typescript-mobx-and-react](#plugins-with-typescript-mobx-and-react)
+  - [Installation & Running](#installation--running)
   - [Overview](#overview)
     - [Why do we need such an architecture?](#why-do-we-need-such-an-architecture)
       - [Reduced regression scope](#reduced-regression-scope)
@@ -25,6 +26,16 @@ Plugins based solution for decoupled FE with TypeScript, React, MobX.
 - jQuery Carousel
 - React Carousel
 - Vue Carousel
+
+## Installation & Running
+
+Install, build, run:
+
+1. ```npm install```
+2. ```npm run build:debug``` or ```npm run build:release```
+3. ```npm run start```
+
+To run the unit tests ```npm test:coverage``` or ```npm run test```.
 
 ## Overview
 
