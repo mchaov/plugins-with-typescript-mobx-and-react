@@ -79,9 +79,9 @@ Files - Purpose
 
 ![Figure 1. Architecture overview](./docs/ReactPlugins-Overview.png "Architecture overview")
 
-Simple implementation for plugin based solution focused on the UI. Implementation focuses on decoupled developement and independant deployability. For the purposes of this example project all the code is the folder ```./packages```. However, consider every "package" a separate project, with it's own developmen and release cycles.
+Simple implementation for plugin based solution focused on the UI. Implementation focuses on decoupled developement and independant deployability. For the purposes of this example project all the code is the folder ```./packages```. Consider every "package" a separate project, with it's own developmen and release cycles and repository.
 
-Although this implementation is with a focus on pluggable UI components, it can be implemented to put focus on plugins for the Bl.
+This concept can be implemented with focus on plugins for the Bl as well.
 
 ### Why do we need such an architecture?
 
