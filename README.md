@@ -1,10 +1,25 @@
+- [plugins-with-typescript-mobx-and-react](#plugins-with-typescript-mobx-and-react)
+  - [Overview](#overview)
+    - [Why do we need such an architecture?](#why-do-we-need-such-an-architecture)
+      - [Reduced regression scope](#reduced-regression-scope)
+      - [Technology agnosticity](#technology-agnosticity)
+    - [How do we control version of the suite?](#how-do-we-control-version-of-the-suite)
+  - [Tech stack](#tech-stack)
+    - [Why TypeScript](#why-typescript)
+    - [Why MobX](#why-mobx)
+    - [Why React](#why-react)
+  - [Detailed design](#detailed-design)
+    - [View](#view)
+    - [Bl](#bl)
+    - [Plugin](#plugin)
+
 # plugins-with-typescript-mobx-and-react
 
 Plugins based solution for decoupled FE with TypeScript, React, MobX.
 
-![](./docs/ReactPlugins-Overview.png)
-
 ## Overview
+
+![Figure 1. Architecture overview](./docs/ReactPlugins-Overview.png "Architecture overview")
 
 Simple implementation for plugin based solution focused on the UI. Implementation focuses on decoupled developement and independant deployability. For the purposes of this example project all the code is the folder ```./packages```. However, consider every "package" a separate project, with it's own developmen and release cycles.
 
