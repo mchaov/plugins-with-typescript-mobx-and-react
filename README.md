@@ -120,7 +120,7 @@ It is very easy to follow [semver](https://semver.org/) (MAJOR.FEATURE.PATCH) ap
 
 For interfaces version 1.0.0, we ship packages starting with 1.
 
-Other versioning approaches are also available.
+Other versioning approaches are also available but are not a focus of this document to discuss.
 
 ## Tech stack
 
