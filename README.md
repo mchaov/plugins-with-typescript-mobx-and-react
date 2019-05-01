@@ -381,6 +381,7 @@ To explain:
 3. Expand on the ```./helpers``` folder. Why it is the same for all plugins? We prefer low coupling. Stable packages. Code duplication is ok, coupling is not!
 4. Plugin inside plugin.
 5. Why plugins cannot communicate between each other?
+6. Explain View class life cycle and in more details.
 
 To add:
 
