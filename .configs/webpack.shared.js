@@ -27,6 +27,7 @@ module.exports = debug => {
             umdNamedDefine: true
         },
         externals: {
+            "vue": "Vue",
             "mobx": "mobx",
             "react": "React",
             "react-dom": "ReactDOM",

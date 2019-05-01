@@ -1,6 +1,7 @@
 import * as React from "react"
 import { Presentation, PresentationProps } from "../../Presentation"
+import { IImage } from "../../../../contracts";
 
-export function createPresentation(div: HTMLDivElement) {
-    return React.createElement<PresentationProps>(Presentation);
+export function createPresentation(data: IImage[]) {
+    return React.createElement<PresentationProps>(Presentation, { data });
 }

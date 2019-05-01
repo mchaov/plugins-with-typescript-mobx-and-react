@@ -24,12 +24,20 @@ export enum ComponentStatus {
 }
 
 export interface IComponent {
-    activate(): void
     deactivate(): void
     status: ComponentStatus
+    activate(...params: any): void
+}
+
+export interface IImage {
+    id: string
+    url: string
+    name: string
+    label: string
 }
 
 export interface IBl extends IComponent {
+    data: IImage[]
     availablePlugins: string[]
     activePlugin: IPlugin | undefined
     activatePlugin: (pluginName: string) => void
@@ -42,4 +50,5 @@ export interface IPluginAPI {
 export interface IPlugin extends IComponent {
     name: string
     api: IPluginAPI
+    activate(data: IImage[]): void
 }

@@ -10,6 +10,7 @@ export class UIState implements IComponent {
         this.status = ComponentStatus.init;
         this.bl = {
             mBus,
+            data: [],
             activate: () => { },
             availablePlugins: [],
             deactivate: () => { },

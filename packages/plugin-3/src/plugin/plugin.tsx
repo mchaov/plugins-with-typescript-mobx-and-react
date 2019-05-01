@@ -1,6 +1,6 @@
 import { observable, action } from "mobx";
-import { ComponentStatus, IPlugin, MessageBus, MessageBusChannels, IPluginAPI } from "../../../contracts";
-import { createPresentation, unmount } from "../helpers";
+import { ComponentStatus, IPlugin, MessageBus, MessageBusChannels, IPluginAPI, IImage } from "../../../contracts";
+import { createPresentation } from "../helpers";
 
 export class Plugin implements IPlugin {
 
@@ -9,15 +9,12 @@ export class Plugin implements IPlugin {
     @observable status: ComponentStatus
 
     private mBus: MessageBus
-    private div: HTMLDivElement
 
     constructor(mBus: MessageBus) {
         this.mBus = mBus;
         this.name = "Plugin 3";
         this.api = { ui: undefined };
         this.status = ComponentStatus.init;
-
-        this.div = document.createElement("div");
 
         this.mBus.on(MessageBusChannels.callToRegisterPlugins, this.callToRegister, this);
         this.callToRegister();
@@ -27,13 +24,12 @@ export class Plugin implements IPlugin {
         this.mBus.emit(MessageBusChannels.register.plugin, this);
     }
 
-    @action.bound activate() {
-        this.api.ui = createPresentation(this.div);
+    @action.bound activate(data: IImage[]) {
+        this.api.ui = createPresentation(data);
         this.status = ComponentStatus.active;
     }
 
     @action.bound deactivate() {
-        unmount(this.div);
         this.api.ui = undefined;
         this.status = ComponentStatus.inactive;
     }

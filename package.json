@@ -18,6 +18,7 @@
   "author": "Martin Chaov",
   "license": "MIT",
   "devDependencies": {
+    "vue": "2.6.10",
     "babel-core": "6.26.3",
     "babel-jest": "23.6.0",
     "@types/enzyme": "3.9.1",

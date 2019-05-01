@@ -1,5 +1,5 @@
 import { observable, action } from "mobx";
-import { ComponentStatus, IPlugin, MessageBus, MessageBusChannels, IPluginAPI } from "../../../contracts";
+import { ComponentStatus, IPlugin, MessageBus, MessageBusChannels, IPluginAPI, IImage } from "../../../contracts";
 import { createPresentation } from "../helpers";
 
 export class Plugin implements IPlugin {
@@ -40,10 +40,13 @@ export class Plugin implements IPlugin {
         }
     }
 
-    @action.bound activate() {
+    @action.bound activate(data: IImage[]) {
         this.div.innerHTML = `
             ${this.name} view is active now!
             <button type="button">test button</button>
+            ${data
+                .map(x => `<img src="${x.url}" title="${x.name}" height="80" />`)
+                .join("")}
         `;
         this.api.ui = createPresentation(this.div);
         this.status = ComponentStatus.active;

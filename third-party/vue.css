@@ -2,18 +2,8 @@
     background: linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB);
 }
 
-.vueCarousel .vueperslide__content-wrapper {
-    top: 50%;
-    left: 50%;
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-    font-family: Tahoma, Geneva, sans-serif;
-}
-
 .vueCarousel .vueperslide__title {
-    font-size: 7em;
-    opacity: 0.6;
-    color: #fff;
+    font-size: 2em;
 }
 
 .vueCarousel p {
@@ -28,5 +18,4 @@
     margin: 0;
     padding: 0;
     fill: #fff;
-    color: #fff;
 }

@@ -13,7 +13,7 @@ describe("Plugin", () => {
 
     it("Plugin activates", () => {
         const inst = new Plugin(ee);
-        inst.activate();
+        inst.activate([]);
         expect(inst.status).toBe(ComponentStatus.active);
     });
 

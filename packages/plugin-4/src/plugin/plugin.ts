@@ -1,6 +1,7 @@
 import { observable, action } from "mobx";
-import { ComponentStatus, IPlugin, MessageBus, MessageBusChannels, IPluginAPI } from "../../../contracts";
+import { ComponentStatus, IPlugin, MessageBus, MessageBusChannels, IPluginAPI, IImage } from "../../../contracts";
 import { createPresentation } from "../helpers";
+import Vue from "vue";
 
 export class Plugin implements IPlugin {
 
@@ -10,9 +11,11 @@ export class Plugin implements IPlugin {
 
     private mBus: MessageBus
     private div: HTMLDivElement
+    private vue: Vue | undefined
 
     constructor(mBus: MessageBus) {
         this.mBus = mBus;
+        this.vue = undefined;
         this.name = "Plugin 4";
         this.api = { ui: undefined };
         this.status = ComponentStatus.init;
@@ -28,27 +31,32 @@ export class Plugin implements IPlugin {
         this.mBus.emit(MessageBusChannels.register.plugin, this);
     }
 
-    @action.bound activate() {
+    @action.bound activate(data: IImage[]) {
         this.status = ComponentStatus.active;
         this.api.ui = createPresentation(this.div);
         this.div.innerHTML = `
         <h2>Vue Carousel :D :D :D</h2>
         <div id="vueCarousel" class="vueCarousel">
-            <vueper-slides :slide-ratio="1/4">
-                <vueper-slide v-for="i in 5" :key="i" :title="i.toString()"></vueper-slide>
+            <vueper-slides fade slide-content-outside="top" slide-content-outside-class="max-widthed" :touchable="false" :slide-ratio="0.3">
+            <vueper-slide
+                v-for="(slide, i) in slides"
+                :key="i"
+                :image="slide.url"
+                :title="'# ' + slide.name"
+                :content="slide.label"></vueper-slide>
             </vueper-slides>
         </div>`;
 
         // no reason to cover this with tests for the demo
-        // it is not realistic implementation, no one is using
         /* istanbul ignore next */
         setTimeout(/* istanbul ignore next */() => {
-            new window["Vue"]({ el: "#vueCarousel" });
+            this.vue = new window["Vue"]({ el: "#vueCarousel", data: { slides: data.slice() } });
         })
     }
 
     @action.bound deactivate() {
         this.api.ui = undefined;
+        this.vue && this.vue.$destroy();
         this.status = ComponentStatus.inactive;
     }
 }

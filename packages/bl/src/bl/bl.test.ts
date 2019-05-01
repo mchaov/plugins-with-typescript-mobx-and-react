@@ -19,6 +19,7 @@ describe("Bl", () => {
         inst.activate();
         inst.activate();
         expect(inst.status).toBe(ComponentStatus.active);
+        expect(inst.data.length).toBe(13);
     });
 
     it("Bl deactivates", () => {

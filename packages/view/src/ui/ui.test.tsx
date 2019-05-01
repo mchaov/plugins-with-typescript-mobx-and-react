@@ -32,6 +32,7 @@ describe("<UI />", () => {
             deactivate: () => { },
             status: ComponentStatus.active,
             bl: {
+                data: [],
                 status: ComponentStatus.active,
                 activatePlugin: (x) => { },
                 activate: () => { },

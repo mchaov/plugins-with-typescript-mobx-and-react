@@ -1,13 +1,12 @@
 import * as React from "react";
-import { observer } from "mobx-react";
 import { BuildCarousel } from "../helpers";
+import { IImage } from "../../../contracts";
 
 export interface PresentationState { }
-export interface PresentationProps { }
+export interface PresentationProps { data: IImage[] }
 
-@observer
 export class Presentation extends React.PureComponent<PresentationProps, PresentationState>{
     render() {
-        return <BuildCarousel />
+        return <BuildCarousel {...this.props} />
     }
 }

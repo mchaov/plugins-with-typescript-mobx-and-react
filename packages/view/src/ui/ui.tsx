@@ -14,10 +14,14 @@ export class UI extends React.Component<UIProps, UIState> {
     render() {
         return (
             <div className="view">
-                Bl state: {this.state.bl.status}
+                Bl state: {this.state.bl.status}<br />
+                Bl data available: <b>{this.state.bl.data.length}</b> images.
                 <hr />
                 {this.state.bl.availablePlugins.map((x, i) =>
-                    <button key={i} onClick={this.state.bl.activatePlugin.bind(null, x)}>{x}</button>
+                    <button
+                        key={i}
+                        onClick={this.state.bl.activatePlugin.bind(null, x)}
+                    >{x}</button>
                 )}
                 <hr />
                 {this.state.bl.activePlugin && this.state.bl.activePlugin.api.ui}

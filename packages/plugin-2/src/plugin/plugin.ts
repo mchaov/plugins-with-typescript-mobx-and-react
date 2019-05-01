@@ -1,5 +1,5 @@
 import { observable, action } from "mobx";
-import { ComponentStatus, IPlugin, MessageBus, MessageBusChannels, IPluginAPI } from "../../../contracts";
+import { ComponentStatus, IPlugin, MessageBus, MessageBusChannels, IPluginAPI, IImage } from "../../../contracts";
 import { createPresentation } from "../helpers";
 
 export class Plugin implements IPlugin {
@@ -28,7 +28,7 @@ export class Plugin implements IPlugin {
         this.mBus.emit(MessageBusChannels.register.plugin, this);
     }
 
-    @action.bound activate() {
+    @action.bound activate(data: IImage[]) {
         this.status = ComponentStatus.active;
         this.api.ui = createPresentation(this.div);
         this.div.innerHTML = `
@@ -37,10 +37,9 @@ export class Plugin implements IPlugin {
             <div class="cc_dynamic">
                 <div class="cc_leftDirection"></div>
                 <div class="cc_rightDirection"></div>
-                <div class="cc_slider">
-                    ${new Array(13)
-                .fill(0)
-                .map(() => `<div class="cc_image"><img src="/third-party/imgs/placeholder.png"></div>`).join("")}
+                <div class="cc_slider">${data
+                .map(x => `<div class="cc_image"><img src="${x.url}"></div>`)
+                .join("")}
                 </div>
             </div>
         </div>`;
