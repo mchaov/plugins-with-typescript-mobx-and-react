@@ -382,6 +382,8 @@ To explain:
 4. Plugin inside plugin.
 5. Why plugins cannot communicate between each other?
 6. Explain View class life cycle and in more details.
+7. What this architecture isn't.
+8. pros/cons.
 
 To add:
 
