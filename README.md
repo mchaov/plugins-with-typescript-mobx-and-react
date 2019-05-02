@@ -387,4 +387,4 @@ To explain:
 
 To add:
 
-2. Dependencies.txt for the different plugins.
+1. Dependencies.txt for the different plugins.
