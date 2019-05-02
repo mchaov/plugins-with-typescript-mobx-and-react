@@ -384,7 +384,3 @@ To explain:
 6. Explain View class life cycle in more details.
 7. What this architecture isn't.
 8. pros/cons.
-
-To add:
-
-1. Dependencies.txt for the different plugins.
