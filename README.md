@@ -377,15 +377,14 @@ Plugin based systems such as [wordpress](https://wordpress.org), [magento](https
 To explain:
 
 1. React life cycle - why ```this.state``` and not ```this.props```. Why is state injected and observable?
-2. Expand on the difference between react app and app that uses react as view
+2. Expand on the difference between react app and an app that uses react as view
 3. Expand on the ```./helpers``` folder. Why it is the same for all plugins? We prefer low coupling. Stable packages. Code duplication is ok, coupling is not!
 4. Plugin inside plugin.
 5. Why plugins cannot communicate between each other?
-6. Explain View class life cycle and in more details.
+6. Explain View class life cycle in more details.
 7. What this architecture isn't.
 8. pros/cons.
 
 To add:
 
-1. BL serves data for all the plugins.
 2. Dependencies.txt for the different plugins.
