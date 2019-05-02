@@ -3,6 +3,11 @@ import { Plugin } from "./plugin";
 import { ComponentStatus, MessageBusChannels } from "../../../contracts";
 
 const ee = new EventEmitter();
+const mockFn = jest.fn();
+
+window["Vue"] = class Vue {
+    $destroy() { mockFn(); }
+}
 
 describe("Plugin", () => {
     it("Plugin initializes", () => {
@@ -21,6 +26,18 @@ describe("Plugin", () => {
         const inst = new Plugin(ee);
         inst.deactivate();
         expect(inst.status).toBe(ComponentStatus.inactive);
+    });
+
+    it("Plugin deactivates vue", done => {
+        // vue instance is created in setTimeout
+        // to get out of the current React rendering stack
+        const inst = new Plugin(ee);
+        inst.activate([]);
+        setTimeout(() => {
+            inst.deactivate();
+            expect(mockFn).toHaveBeenCalledTimes(1);
+            done();
+        });
     });
 
     it("Plugin sends instance upon callToRegister message", done => {
