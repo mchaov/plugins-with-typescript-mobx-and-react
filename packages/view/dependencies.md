@@ -1,23 +1,7 @@
+```json
 {
-  "name": "plugins-with-typescript-mobx-and-react",
-  "version": "1.0.0",
-  "description": "Plugins based solution for decoupled FE with TypeScript, React, MobX.",
-  "main": "index.html",
-  "scripts": {
-    "start": "http-server -p 3000",
-    "test": "jest --bail --config ./.configs/jest.config.js",
-    "build:debug": "webpack --config ./.configs/webpack.debug.js",
-    "build:release": "webpack --config ./.configs/webpack.release.js",
-    "build:debug-w": "webpack --config ./.configs/webpack.debug.js -w",
-    "test:coverage": "jest --coverage --bail --config ./.configs/jest.config.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/mchaov/plugins-with-typescript-mobx-and-react.git"
-  },
-  "author": "Martin Chaov",
-  "license": "MIT",
-  "devDependencies": {
+"devDependencies": {
+    "vue": "2.6.10",
     "babel-core": "6.26.3",
     "babel-jest": "23.6.0",
     "@types/enzyme": "3.9.1",
@@ -62,7 +46,6 @@
     "webpack-raw-bundler": "1.3.6"
   },
   "dependencies": {
-    "vue": "2.6.10",
     "eventemitter3": "3.1.0",
     "mobx": "5.9.4",
     "mobx-react": "5.4.3",
@@ -72,3 +55,4 @@
     "react-responsive-carousel": "^3.1.49"
   }
 }
+```
