@@ -1,3 +1,5 @@
+- [Bl](#bl)
+
 # Bl
 
 Business logic package contains a small class that is responsible for plugin:

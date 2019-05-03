@@ -1,10 +1,15 @@
-- [plugins-with-typescript-mobx-and-react](#plugins-with-typescript-mobx-and-react)
+- [Plugins with typescript mobx and react](#plugins-with-typescript-mobx-and-react)
   - [Installation & Running](#installation--running)
     - [Post compile/test folders](#post-compiletest-folders)
     - [.configs](#configs)
     - [Running the demo](#running-the-demo)
   - [Overview](#overview)
+    - [What is a plugin?](#what-is-a-plugin)
     - [Why do we need such an architecture?](#why-do-we-need-such-an-architecture)
+      - [Independent development](#independent-development)
+      - [Independent deployability](#independent-deployability)
+      - [Independent release cycle](#independent-release-cycle)
+      - [Small easy to test bundles of code](#small-easy-to-test-bundles-of-code)
       - [Reduced regression scope](#reduced-regression-scope)
       - [Technology agnosticity](#technology-agnosticity)
       - [Async loading of the packages](#async-loading-of-the-packages)
@@ -15,14 +20,14 @@
     - [Why React](#why-react)
     - [Why EventEmitter3](#why-eventemitter3)
   - [Detailed design](#detailed-design)
+    - [Contracts package](#contracts-package)
   - [Real life examples](#real-life-examples)
   - [Summary](#summary)
     - [What this architecture isn't](#what-this-architecture-isnt)
     - [Pros](#pros)
     - [Cons](#cons)
-  - [TODO!](#todo)
 
-# plugins-with-typescript-mobx-and-react
+# Plugins with typescript mobx and react
 
 This repository contains an implementation of a reference architecture for plugin based UI. Highlights of this implementation are:
 
@@ -82,6 +87,28 @@ Simple implementation for plugin based solution focused on the UI. Implementatio
 
 This concept can be implemented with focus on plugins for the Bl as well.
 
+### What is a plugin?
+
+**plug-in** */ˈplʌɡɪn/*
+
+*adjective:* plugin
+
+- able to be connected by means of a plug. "a plug-in kettle"
+- (of a module or software) able to be added to a system to give extra features or functions.
+"a plug-in graphics card"
+
+*noun:* plugin
+
+- a plug-in module or plug-in software.
+
+The idea of a plugin is to future proof. Imagine your house without electric sockets, but proprietary ones. One for each: microwave, fridge, washing machine ... etc. If we don't have a standard of expandability, we can't expand...
+
+It sounds intuitive to make things extendable/expandable. However, in software it is not working so well. Yes there are these big applications with massive plugin support, but how many you can list on top of your head? On the web the picture is far bleaker. We see very few good examples of plugin/extention abilities. Such examples are the many eCommerce platforms. They can be expanded with new functionality (via plugins) without re-compiling and re-booting the web application (or server itself).
+
+So plugin software is such that allows you to expand a base application without the need to re-compilation, re-deployment or reboot of the said application.
+
+Plugins communicate via interfaces and heavily rely on abstract factories and dependency injection.
+
 ### Why do we need such an architecture?
 
 As projects grow bigger and with more features over time, companies are facing increasing code complexity. This sort of architecture provides the following benefits:
@@ -94,24 +121,45 @@ As projects grow bigger and with more features over time, companies are facing i
 - technology agnosticity
 - async loading of the packages
 
+#### Independent development
+
+It may sound simple to split off the development work onto 5-10 people. Once you have to scale over 1000 developers, simply relying on source control is not enough. You need an architecture that may support this kind of scale. In that sense development of plugins or micro-frontends or micro-services are very close to each other. Scaling of the development internally is not the only reason to go for such architecture. Once you have a stable foundation a company may decide to outsource part of the development to other contractors.
+
+#### Independent deployability
+
+In a service oriented world there is nothing worse than down time. If am able to release new software updates or as in this case extentions. It means I can release without rebooting my applications/servers. There are ways to mitigate down time if you have to. The point however is to remove complexity from a system, not to add it to manages softare design flaws.
+
+#### Independent release cycle
+
+A release cycle might take longer for some features than for others. If you have the ability to release features independently one from another - you may have different iteration lenght for them. This is giving you flexibility with your development.
+
+#### Small easy to test bundles of code
+
+This kind of DDD approach to feature splitting gives you smaller packages with lower area of impact. Package that contain few classes and are in the scope of LOC instead of KLOK are easier to reason about. The developers can easily create models of the packages in their head and discuss the source without even running it.
+
 #### Reduced regression scope
 
-When we introduce a new plugin that is following the contract, we do not expect regression on the busines logic and view packages. The same goes for new features implementation in the Bl or View packages - no regression is expected on the plugins.
+When we introduce a new plugin that is following the contract, we do not expect regression on the busines logic, view and other plugin packages. The same goes for new features implementation in the Bl or View packages - no regression is expected on the plugins.
 
-This doesn't mean we should not be doing integration tests. However, we do not need to conduct thorough testing of all aspects of the unaffected packages. For this project the tests suite runs very fast. Consider a system with gigabytes of source code which tests run for hours, maybe even days...
+This doesn't mean we should not be doing integration tests. However, we do not need to conduct thorough testing of all aspects of the unaffected packages. For this project the tests suite runs very fast. Consider a system with gigabytes of source code which tests run for hours, maybe even days... This approach is going to yield packages with unit tests that run for just a couple of minutes.
 
 #### Technology agnosticity
 
-As long as the different packages follow the interfaces we are getting the ability to implement different packages with different technology stacks. During projcets growth we are facing two major challanges:
+As long as the packages follow the interfaces we are getting the ability to implement them with different technology stacks. During projects growth we are facing three major challanges:
 
 - third party content integration that is following a different tech stack
 - new features requiring more modern tech stack/tools
+- maintenance of the existing code base
 
-While the plugins are following the provided contract they can have different implementation of their own presentation.
+While the plugins are following the provided contract they can have different implementation of their own presentation. In this demo you may find 4 different plugins relying on 4 different tech stacks to achieve the business goals.
+
+In the case of the web - as long as the code is compiled to JavaScript, there is no reason not to use the tech stack of your own choice.
 
 #### Async loading of the packages
 
 Code can be loaded on the page on demand. Async communication via message bus ensures that components can link at any point in time.
+
+How many plugins do you need to render the page? One - twenty? You may choose your download strategy based on your business requirements. While plugins are independently bundles and deployed, you don't need to redeploy or restart anything.
 
 ### How do we control version of the suite?
 
@@ -171,12 +219,19 @@ This section provides a bit more light onto what is inside the different package
 
 [Event-emitter3](https://www.npmjs.com/package/event-emitter3) is not listed as dependency of any of the packages as it is compliant with our interfaces. Technically we do not depend on it, and you may notice inside the demo that it is not referenced anywhere. As long as you provide a message bus implementation compatible with our interfaces and requirements, the code is going to continue working as before. It is being imported only inside the unit tests and injected via the constructors in the "runtime" demo.
 
-Check the detailed docs:
+Check the detailed docs per package:
 
 - [View](./docs/view.md)
 - [Bl](./docs/bl.md)
 - [Plugin](./docs/plugin.md)
 - [Composed example](./docs/indexhtml.md)
+
+### Contracts package
+
+Very simple package providing interfaces and enums.
+
+**Why do we use interfaces and not base classes?**
+TODO
 
 ## Real life examples
 
@@ -188,21 +243,28 @@ Plugin based systems such as [wordpress](https://wordpress.org), [magento](https
 
 ### What this architecture isn't
 
-TODO
+- This is not a cure for cancer.
+- This is not how you do an entire application, but it shows how to plug stuff into one.
+- Knowledge of this is not going to make you a better developer if you are not one already.
+- If you don't understand the pros/cons of this architecture, you should stop YouTube and read books for a while.
+- This is not panacea.
+- This is not going to solve world hunger.
+- This is not the answer for embedded systems or resource constrained environments (mobile web is an exception).
 
 ### Pros
 
-TODO
+- independent development
+- independent deployability
+- independent release cycle
+- small easy to test bundles of code
+- reduced regression scope
+- technology agnosticity
+- async loading of the packages
+- easier to manage packages that are no longer used
 
 ### Cons
 
-TODO
-
-## TODO!
-
-To explain:
-
-1. Expand on the ```./helpers``` folder. Why it is the same for all plugins? We prefer low coupling. Stable packages. Code duplication is ok, coupling is not!
-2. Plugin inside plugin.
-3. Why plugins cannot communicate between each other?
-4. Explain View class life cycle in more details.
+- some code duplication is possible, but prefferable to coupling between components
+- more experienced team is needed to setup the foundation for this architecture
+- every component is coupled to the same interfaces package. Breaking changes to the interfaces might lead to a massive update and redeploy of the components. Interfaces package must be stable, and this is not trivial to achieve. There are ways to mitigate this such as: introducing new interfaces into new more unstable packages.
+- your offering is spread into many packages, sometimes it becomes harder to organize. Example: a customer's product is combination of views/bls/plugins with different versions.
