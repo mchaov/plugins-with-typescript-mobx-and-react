@@ -19,3 +19,12 @@
     padding: 0;
     fill: #fff;
 }
+
+.vueperslides__parallax-wrapper {
+    padding-bottom: 50% !important;
+}
+
+.vueCarousel .vueperslide {
+    background-position: center center;
+    background-size: cover;
+}

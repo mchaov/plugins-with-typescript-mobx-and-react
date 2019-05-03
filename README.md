@@ -205,6 +205,8 @@ Additional reasons:
 1. Good TypeScript integration
 1. React is super cool :)
 
+No, there are no React hooks in this demo, as they are not relevant to the architecture.
+
 ### Why EventEmitter3
 
 The message bus interface was designed based on the NodeJS EventEmitter implementation. The [event-emitter3](https://www.npmjs.com/package/event-emitter3) is designed for compatibility and performance. To quote the developers:

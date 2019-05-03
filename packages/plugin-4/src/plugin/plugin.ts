@@ -21,7 +21,6 @@ export class Plugin implements IPlugin {
         this.status = ComponentStatus.init;
 
         this.div = document.createElement("div");
-        this.div.className = "cc_ccCarousel";
 
         this.mBus.on(MessageBusChannels.callToRegisterPlugins, this.callToRegister, this);
         this.callToRegister();

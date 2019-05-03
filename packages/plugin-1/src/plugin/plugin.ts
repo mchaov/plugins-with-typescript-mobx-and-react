@@ -47,11 +47,12 @@ export class Plugin implements IPlugin {
         this.div.innerHTML = `
             ${this.name} view is active now!
             <button type="button">test button</button>
+            <hr/>
             ${data
                 .map(
                     // ignore this lambda from coverage
                     /* istanbul ignore next */
-                    x => `<img src="${x.url}" title="${x.name}" height="80" />`)
+                    x => `<img src="${x.url}" title="${x.name}" height="110" />`)
                 .join("")}
         `;
         this.api.ui = createPresentation(this.div);

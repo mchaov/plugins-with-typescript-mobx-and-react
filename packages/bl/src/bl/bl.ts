@@ -29,13 +29,13 @@ export class Bl implements IBl {
     }
 
     @action.bound imagineAFetchRequest() {
-        new Array(13).fill(0).forEach((x, i) => {
-            this.data.push({
+        this.data = new Array(13).fill(0).map((x, i) => {
+            return {
                 name: `Image ${i} name`,
                 label: `Image ${i} label`,
                 id: `i-${performance.now()}`,
-                url: "https://picsum.photos/1280/960"
-            })
+                url: `https://picsum.photos/${Math.floor(Math.random() * (1200 - 1001)) + 1000}/960`
+            }
         })
     }
 

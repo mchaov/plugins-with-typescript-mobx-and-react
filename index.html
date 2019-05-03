@@ -28,6 +28,22 @@
         <link rel="stylesheet" href="/third-party/vue.css">
         <script src="/third-party/vue.min.js"></script>
         <script src="/third-party/vueperslides.umd.min.js"></script>
+
+        <!-- demo styles -->
+        <style>
+            body {
+                background: #dedede;
+            }
+
+            .app {
+                border: 2px solid red;
+            }
+
+            .red {
+                color: red;
+                font-weight: bold;
+            }
+        </style>
     </head>
 
     <body>
@@ -36,7 +52,12 @@
 
         <hr />
 
-        <div id="app"></div>
+        <span class="red">App:</span>
+        <div id="app" class="app"></div>
+
+        <hr />
+
+        <div id="app2"></div>
 
         <script>
             // Setup Runtime
