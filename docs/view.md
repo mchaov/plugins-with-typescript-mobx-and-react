@@ -93,4 +93,11 @@ Once you get the project to build and run feel free to run ```http://localhost:3
 
 This powerful abstraction allows us to lift up the state of any component and the entire application to a level where it can be injected. When you need to move your code base to another view library or whatever package is affected, you can do that with minimum damage to the system.
 
-[Back to readme.md.](../README.md)
+---
+
+Other related docs:
+
+- [Bl](bl.md)
+- [Plugin](plugin.md)
+
+[Back to README.md.](../README.md)

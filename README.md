@@ -13,10 +13,6 @@
     - [Why MobX](#why-mobx)
     - [Why React](#why-react)
     - [Why EventEmitter3](#why-eventemitter3)
-  - [Detailed design](#detailed-design)
-    - [View](#view)
-    - [Bl](#bl)
-    - [Plugin](#plugin)
   - [Running the demo](#running-the-demo)
     - [HEAD section](#head-section)
       - [runtime](#runtime)
@@ -28,6 +24,7 @@
       - [main setup](#main-setup)
       - [entities init](#entities-init)
       - [bottom scripts section](#bottom-scripts-section)
+  - [Detailed design](#detailed-design)
   - [Real life examples](#real-life-examples)
   - [Summary](#summary)
     - [What this architecture isn't](#what-this-architecture-isnt)
@@ -172,88 +169,6 @@ The message bus interface was designed based on the NodeJS EventEmitter implemen
 
 In practice any message bus can do the trick as long as there is no forced serialization/deserialization of the passed objects. This design expects us to pass objects with methods that are not serializable.
 
-## Detailed design
-
-This section provides a bit more light onto what is inside the different packages. Note that the different plugins implementation may vary! Thus only the general design of a plugin is being explored here.
-
-[Event-emitter3](https://www.npmjs.com/package/event-emitter3) is not listed as dependency of any of the packages as it is compliant with our interfaces. Technically we do not depend on it, and you may notice inside the demo that it is not referenced anywhere. As long as you provide a message bus implementation compatible with our interfaces and requirements, the code is going to continue working as before. It is being imported only inside the unit tests and injected via the constructors in the "runtime" demo.
-
-### View
-
-![Figure 2. View package](./docs/ReactPlugins-View.png "View package")
-
-View package has the following dependencies:
-
-- [MobX](https://www.npmjs.com/package/mobx)
-- [React](https://www.npmjs.com/package/react)
-- [ReactDOM](https://www.npmjs.com/package/react-dom)
-- Interfaces package (inside ```./packages/contracts```)
-
-Check the detailed [doc here](./docs/view.md)!
-
-### Bl
-
-Business logic package contains a small class that is responsible for plugin:
-
-- discovery
-- life cycle
-- connection with data layer (currently non is implemented)
-
-![Figure 3. Bl package](./docs/ReactPlugins-Bl.png "Bl package")
-
-Bl package has the following dependencies:
-
-- [MobX](https://www.npmjs.com/package/mobx)
-- Interfaces package (inside ```./packages/contracts```)
-
-Bl is responsible for data delivery and management. View and Plugins are unaware where is the data or how to obtain it. Bl may contain logic for (but not limited to):
-
-- auth
-- service discovery
-- data serialization/deserialization
-- pub/sub
-- etc...
-
-Of course all of the above should not be in the same file/class ... Bl is a package and should be split once there is contrast between stable and unstable features inside of it.
-
-Once you get the project to build and run feel free to run ```http://localhost:3000/packages/bl/index.html``` to see how the bl can be developed and tested on it's own.
-
-### Plugin
-
-The plugin package contains two main classes and few small helper functions. For more details check Figure 4. Plugin package.
-
-![Figure 4. Plugin package](./docs/ReactPlugins-Plugin.png "Plugin package")
-
-Plugin's true nature can be seen in Figure 5 (below). The "Presentation" component is implemented in the accepted "React" tech stack. However the "DIV" portion is free to be controlled by custom implementation:
-
-- direct DOM manipulation
-- VueJS
-- Angular App
-- jQuery...
-
-![Figure 5. Plugin internals](./docs/ReactPlugins-PluginInternals.png "Plugin internals")
-
-This gives us the ability to seamlessly integrade with our view engine. However we are retaining the option to implement third party components non-complient with our architecture.
-
-Plugin packages in this demo share the following dependencies:
-
-- [MobX](https://www.npmjs.com/package/mobx)
-- [React](https://www.npmjs.com/package/react)
-- [ReactDOM](https://www.npmjs.com/package/react-dom)
-- Interfaces package (inside ```./packages/contracts```)
-
-On Figure 6. you can observe that Plugin provides Presentation following our React integration needs. However inside this Presentation, we have an entity called DIV that is fully controlled based on the business needs. This DIV entity could be controlled with by a jQuery/Vue/React widget.
-
-![Figure 6. Plugin runtime](./docs/ReactPlugins-PluginRuntime.png "Plugin runtime")
-
-There are four different implementations of the plugin. They vary between them as they implement different approaches to the presentation.
-
-The important thing is that all of them are using our React based contract to hook up to our view.
-
-Once you get the project to build and run feel free to run ```http://localhost:3000/packages/plugin{1-4}/index.html``` to see how the different plugins can be developed and tested on their own. Every ```index.html``` for the plugins contains some business logic needed for it's rendering in the HTML. Feel free to hack around it and understand how/why it is working.
-
-I know the names plugin1 to plugin4 are not very imaginative. However, I like the idea of exploring of what hides behind the names :) I promise it is worth it :)
-
 ## Running the demo
 
 After you execute ```npm run start``` and open the browser to the specified address you are going to see a working demo of the code.
@@ -390,6 +305,18 @@ This section loads all the relevant scripts from the compiled packages.
     <script async defer src="/_bundles/demo_plugin3.js"></script>
     <script async defer src="/_bundles/demo_plugin4.js"></script>
 ```
+
+## Detailed design
+
+This section provides a bit more light onto what is inside the different packages. Note that the different plugins implementation may vary! Thus only the general design of a plugin is being explored here.
+
+[Event-emitter3](https://www.npmjs.com/package/event-emitter3) is not listed as dependency of any of the packages as it is compliant with our interfaces. Technically we do not depend on it, and you may notice inside the demo that it is not referenced anywhere. As long as you provide a message bus implementation compatible with our interfaces and requirements, the code is going to continue working as before. It is being imported only inside the unit tests and injected via the constructors in the "runtime" demo.
+
+Check the detailed docs:
+
+- [View](./docs/view.md)
+- [Bl](./docs/bl.md)
+- [Plugin](./docs/plugin.md)
 
 ## Real life examples
 
