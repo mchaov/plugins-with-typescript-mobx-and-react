@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>The BL</title>
+
+        <!-- runtime -->
+        <script src="/third-party/react.production.min.js"></script>
+        <script src="/third-party/react-dom.production.min.js"></script>
+        <script src="/third-party/mobx.umd.min.js"></script>
+        <script src="/third-party/mobx-utils.umd.js"></script>
+        <script src="/third-party/mobx-react.min.js"></script>
+        <script src="/third-party/eventemitter3.min.js"></script>
+    </head>
+
+    <body>
+        Open console to access the Bl instance...<br />
+        Access global var <b>bl</b> to call the instance.
+        <script>
+            // Setup Runtime
+            const MBUS = new EventEmitter();
+            var bl;
+
+            window.addEventListener("load", () => {
+                setTimeout(() => {
+                    bl = new demo_bl.Bl(MBUS);
+                    console.log(bl);
+                }, 0);
+            });
+        </script>
+
+        <script async defer src="/_bundles/demo_bl.js"></script>
+    </body>
+
+</html>

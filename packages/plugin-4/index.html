@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Plugin 4 - Vue carousel</title>
+
+        <!-- runtime -->
+        <script src="/third-party/react.production.min.js"></script>
+        <script src="/third-party/react-dom.production.min.js"></script>
+        <script src="/third-party/mobx.umd.min.js"></script>
+        <script src="/third-party/mobx-utils.umd.js"></script>
+        <script src="/third-party/mobx-react.min.js"></script>
+        <script src="/third-party/eventemitter3.min.js"></script>
+
+        <!-- Vue plugin needs -->
+        <link href="/third-party/vueperslides.css" rel="stylesheet">
+        <link rel="stylesheet" href="/third-party/vue.css">
+        <script src="/third-party/vue.min.js"></script>
+        <script src="/third-party/vueperslides.umd.min.js"></script>
+    </head>
+
+    <body>
+        <button onclick="runAction('plugin4', 'activate')">Activate</button>
+        <button onclick="runAction('plugin4', 'deactivate')">Deactivate</button>
+
+        You can access the <b>plugin</b> instance in the console by using the global var - plugin4.
+        <hr />
+
+        <div id="app"></div>
+
+        <script>
+            // Setup Runtime
+            const MBUS = new EventEmitter();
+            function runAction(entity, action) { window[entity][action](demoData); }
+            var demoData = new Array(13).fill(0).map((x, i) => {
+                return {
+                    name: `Image ${i} name`,
+                    label: `Image ${i} label`,
+                    id: `i-${performance.now()}`,
+                    url: "https://picsum.photos/1280/960"
+                }
+            });
+
+            var plugin4;
+
+            window.addEventListener("load", () => {
+                setTimeout(() => {
+                    plugin4 = new demo_plugin4.Plugin(MBUS);
+                    mobx.observe(
+                        plugin4.api, "ui", x => ReactDOM.render(x.newValue, document.getElementById("app"))
+                    );
+                    plugin4.activate(demoData);
+                }, 0);
+            });
+        </script>
+
+        <script async defer src="/_bundles/demo_plugin4.js"></script>
+    </body>
+
+</html>

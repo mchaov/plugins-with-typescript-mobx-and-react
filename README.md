@@ -29,6 +29,10 @@
       - [entities init](#entities-init)
       - [bottom scripts section](#bottom-scripts-section)
   - [Real life examples](#real-life-examples)
+  - [Summary](#summary)
+    - [What this architecture isn't](#what-this-architecture-isnt)
+    - [Pros](#pros)
+    - [Cons](#cons)
   - [TODO!](#todo)
 
 # plugins-with-typescript-mobx-and-react
@@ -185,6 +189,90 @@ View package has the following dependencies:
 - [ReactDOM](https://www.npmjs.com/package/react-dom)
 - Interfaces package (inside ```./packages/contracts```)
 
+View implementation has it's state as an external class. Using MobX for observables. Point attention to the base implementation of the ```ui.tsx```:
+
+All components of this implementation share the same observables pattern. This pattern is usable outside of React. This is preffered so no direct coupling to the view library is going to be present in the implementation. This provides a ```React.Component``` that can observe any properties following the same pattern.
+
+In the example below we are observing not only properties from the BL (```this.state.bl```) package, but also the active Plugin and it's observables (```this.state.bl.activePlugin```).
+
+```typescript
+export type UIProps = { state: UIState }
+
+@observer
+export class UI extends React.Component<UIProps, UIState> {
+    constructor(props: UIProps) {
+        super(props);
+        // using state class with observable props
+        this.state = props.state;
+    }
+
+    render() {
+        // using data only from the state!
+        // it is okay to use this.props... but you won't receive new props
+        // as the lifecycle of the application is managed elsewhere
+        return (
+            <div className="view">
+                Bl state: {this.state.bl.status}<br />
+                Bl data available: <b>{this.state.bl.data.length}</b> images.
+                <hr />
+                {this.state.bl.availablePlugins.map((x, i) =>
+                    <button
+                        key={i}
+                        onClick={this.state.bl.activatePlugin.bind(null, x)}
+                    >{x}</button>
+                )}
+                <hr />
+                {this.state.bl.activePlugin && this.state.bl.activePlugin.api.ui}
+            </div>
+        )
+    }
+}
+```
+
+A big difference between React Application... and Application using React as view is that the life cycle is managed by the Application. The View package contains an ```index.tsx``` file that provides integration with the said app.
+
+```typescript
+import { UI, UIProps } from "./ui";
+import { UIState } from "./state";
+import { MessageBus } from "../../contracts";
+
+export type ViewOptions = { mBus: MessageBus }
+
+// There is an application on top that instantiates all of these classes
+// and handles routing between pages.
+// These classes are .activate() when you navigate to their page
+// and .deactivate() when you navigate away.
+export class View {
+    domId: string
+    props: UIProps
+    state: UIState
+
+    constructor(domId: string, options: ViewOptions) {
+        this.domId = domId;
+        this.state = new UIState(options.mBus);
+        this.props = { state: this.state };
+    }
+
+    activate() { // APPLICATION life cycle method
+        const domRef = document.getElementById(this.domId);
+        if (domRef !== null) { ReactDOM.render(<UI {...this.props} />, domRef); }
+        this.state.activate();
+        return this;
+    }
+
+    deactivate() { // APPLICATION life cycle method
+        const domRef = document.getElementById(this.domId);
+        if (domRef !== null) { ReactDOM.unmountComponentAtNode(domRef) }
+        this.state.deactivate();
+        return this;
+    }
+}
+```
+
+Once you get the project to build and run feel free to run ```http://localhost:3000/packages/view/index.html``` to see how the view can be developed and tested on it's own.
+
+This powerful abstraction allows us to lift up the state of any component and the entire application to a level where it can be injected. When you need to move your code base to another view library or whatever package is affected, you can do that with minimum damage to the system.
+
 ### Bl
 
 Business logic package contains a small class that is responsible for plugin:
@@ -200,6 +288,17 @@ Bl package has the following dependencies:
 - [MobX](https://www.npmjs.com/package/mobx)
 - Interfaces package (inside ```./packages/contracts```)
 
+Bl is responsible for data delivery and management. View and Plugins are unaware where is the data or how to obtain it. Bl may contain logic for (but not limited to):
+
+- auth
+- service discovery
+- data serialization/deserialization
+- pub/sub
+- etc...
+
+Of course all of the above should not be in the same file/class ... Bl is a package and should be split once there is contrast between stable and unstable features inside of it.
+
+Once you get the project to build and run feel free to run ```http://localhost:3000/packages/bl/index.html``` to see how the bl can be developed and tested on it's own.
 
 ### Plugin
 
@@ -228,6 +327,14 @@ Plugin packages in this demo share the following dependencies:
 On Figure 6. you can observe that Plugin provides Presentation following our React integration needs. However inside this Presentation, we have an entity called DIV that is fully controlled based on the business needs. This DIV entity could be controlled with by a jQuery/Vue/React widget.
 
 ![Figure 6. Plugin runtime](./docs/ReactPlugins-PluginRuntime.png "Plugin runtime")
+
+There are four different implementations of the plugin. They vary between them as they implement different approaches to the presentation.
+
+The important thing is that all of them are using our React based contract to hook up to our view.
+
+Once you get the project to build and run feel free to run ```http://localhost:3000/packages/plugin{1-4}/index.html``` to see how the different plugins can be developed and tested on their own. Every ```index.html``` for the plugins contains some business logic needed for it's rendering in the HTML. Feel free to hack around it and understand how/why it is working.
+
+I know the names plugin1 to plugin4 are not very imaginative. However, I like the idea of exploring of what hides behind the names :) I promise it is worth it :)
 
 ## Running the demo
 
@@ -372,15 +479,25 @@ Examples of plugin based UI architectures can be found in many places. A lot mor
 
 Plugin based systems such as [wordpress](https://wordpress.org), [magento](https://magento.com) are very common in the eCommerce space. Every web application build with such system is a mashup of plugins communicating via shared interface.
 
+## Summary
+
+### What this architecture isn't
+
+TODO
+
+### Pros
+
+TODO
+
+### Cons
+
+TODO
+
 ## TODO!
 
 To explain:
 
-1. React life cycle - why ```this.state``` and not ```this.props```. Why is state injected and observable?
-2. Expand on the difference between react app and an app that uses react as view
-3. Expand on the ```./helpers``` folder. Why it is the same for all plugins? We prefer low coupling. Stable packages. Code duplication is ok, coupling is not!
-4. Plugin inside plugin.
-5. Why plugins cannot communicate between each other?
-6. Explain View class life cycle in more details.
-7. What this architecture isn't.
-8. pros/cons.
+1. Expand on the ```./helpers``` folder. Why it is the same for all plugins? We prefer low coupling. Stable packages. Code duplication is ok, coupling is not!
+1. Plugin inside plugin.
+1. Why plugins cannot communicate between each other?
+1. Explain View class life cycle in more details.

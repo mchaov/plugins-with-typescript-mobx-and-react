@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Plugin 2- jQuery carousel</title>
+
+        <!-- runtime -->
+        <script src="/third-party/react.production.min.js"></script>
+        <script src="/third-party/react-dom.production.min.js"></script>
+        <script src="/third-party/mobx.umd.min.js"></script>
+        <script src="/third-party/mobx-utils.umd.js"></script>
+        <script src="/third-party/mobx-react.min.js"></script>
+        <script src="/third-party/eventemitter3.min.js"></script>
+
+        <!-- jQuery plugin needs -->
+        <link rel="stylesheet" href="/third-party/cc_styles.css">
+        <script src="/third-party/jquery-3.4.0.min.js"></script>
+        <script src="/third-party/cc_script.js"></script>
+    </head>
+
+    <body>
+        <button onclick="runAction('plugin2', 'activate')">Activate</button>
+        <button onclick="runAction('plugin2', 'deactivate')">Deactivate</button>
+
+        You can access the <b>plugin</b> instance in the console by using the global var - plugin1.
+        <hr />
+
+        <div id="app"></div>
+
+        <script>
+            // Setup Runtime
+            const MBUS = new EventEmitter();
+            function runAction(entity, action) { window[entity][action](demoData); }
+            var demoData = new Array(13).fill(0).map((x, i) => {
+                return {
+                    name: `Image ${i} name`,
+                    label: `Image ${i} label`,
+                    id: `i-${performance.now()}`,
+                    url: "https://picsum.photos/1280/960"
+                }
+            });
+
+            var plugin2;
+
+            window.addEventListener("load", () => {
+                setTimeout(() => {
+                    plugin2 = new demo_plugin2.Plugin(MBUS);
+                    mobx.observe(
+                        plugin2.api, "ui", x => ReactDOM.render(x.newValue, document.getElementById("app"))
+                    );
+                    plugin2.activate(demoData);
+                }, 0);
+            });
+        </script>
+
+        <script async defer src="/_bundles/demo_plugin2.js"></script>
+    </body>
+
+</html>
