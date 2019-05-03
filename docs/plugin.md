@@ -39,6 +39,6 @@ I know the names plugin1 to plugin4 are not very imaginative. However, I like th
 Other related docs:
 
 - [Bl](bl.md)
-- [Plugin](plugin.md)
+- [View](view.md)
 
 [Back to README.md.](../README.md)
