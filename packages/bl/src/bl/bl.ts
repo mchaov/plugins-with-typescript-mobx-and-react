@@ -34,7 +34,7 @@ export class Bl implements IBl {
                 name: `Image ${i} name`,
                 label: `Image ${i} label`,
                 id: `i-${performance.now()}`,
-                url: `https://picsum.photos/${Math.floor(Math.random() * (1200 - 1001)) + 1000}/960`
+                url: `https://picsum.photos/${Math.floor(Math.random() * (1200 - 1001)) + 1000}/500`
             }
         })
     }
