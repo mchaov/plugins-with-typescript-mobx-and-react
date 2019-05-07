@@ -8,7 +8,7 @@ Business logic package contains a small class that is responsible for plugin:
 - life cycle
 - connection with data layer (currently non is implemented)
 
-![Figure 3. Bl package](./docs/ReactPlugins-Bl.png "Bl package")
+![Figure 3. Bl package](ReactPlugins-Bl.png "Bl package")
 
 Bl package has the following dependencies:
 
