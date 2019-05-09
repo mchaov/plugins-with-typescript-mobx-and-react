@@ -1,5 +1,10 @@
 # Plugins
 
+## Attention
+
+- Feel free to interupt me at any point for questions
+- Let's make a clear distinction between "React application" AND "Application using React as a view engine", I already have an application, and have 0 intentions to re-write it
+
 ## Intro to architecture
 
 Since the main focus of this presentation is architecture. I want to make a few points clear before I move to the specific problem and it's solution.
@@ -18,11 +23,6 @@ Since the main focus of this presentation is architecture. I want to make a few 
 - Scalability – handle load increases without decreasing performance, or the possibility to rapidly increase the load.
 - Reusability – chance of using a component or system in other components/systems with small or no change.
 - Supportability – useful information for identifying and solving problems.
-
-## Disclaimer
-
-- Feel free to interupt me at any point for questions
-- Let's make a clear distinction between "React application" AND "Application using React as a view engine", I already have an application, and have 0 intentions to re-write it
 
 ## What is a plugin
 
