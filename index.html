@@ -67,26 +67,36 @@
         <script>
             var view, bl, plugin1, plugin2, plugin3, plugin4;
 
+            const timeVar = 0;
             window.addEventListener("load", () => {
                 setTimeout(() => {
                     view = new demo_view.View("app", { mBus: MBUS });
+                    console.log("View.init");
+                }, timeVar * 2)
+                setTimeout(() => {
                     view.activate();
-                }, 0)
+                    console.log("View.activate");
+                }, timeVar * 4)
                 setTimeout(() => {
                     bl = new demo_bl.Bl(MBUS);
-                }, 500)
+                    console.log("Bl.init | activate is controlled by the View");
+                }, timeVar * 6)
                 setTimeout(() => {
                     plugin1 = new demo_plugin1.Plugin(MBUS);
-                }, 250)
+                    console.log("Plugin1.init");
+                }, timeVar)
                 setTimeout(() => {
                     plugin2 = new demo_plugin2.Plugin(MBUS);
-                }, 650)
+                    console.log("Plugin2.init");
+                }, timeVar * 3)
                 setTimeout(() => {
                     plugin3 = new demo_plugin3.Plugin(MBUS);
-                }, 800)
+                    console.log("Plugin3.init");
+                }, timeVar * 7)
                 setTimeout(() => {
                     plugin4 = new demo_plugin4.Plugin(MBUS);
-                }, 1000)
+                    console.log("Plugin4.init");
+                }, timeVar * 9)
             });
         </script>
 
