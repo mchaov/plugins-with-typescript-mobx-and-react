@@ -270,3 +270,4 @@ Plugin based systems such as [wordpress](https://wordpress.org), [magento](https
 - more experienced team is needed to setup the foundation for this architecture
 - every component is coupled to the same interfaces package. Breaking changes to the interfaces might lead to a massive update and redeploy of the components. Interfaces package must be stable, and this is not trivial to achieve. There are ways to mitigate this such as: introducing new interfaces into new more unstable packages.
 - your offering is spread into many packages, sometimes it becomes harder to organize. Example: a customer's product is combination of views/bls/plugins with different versions.
+- harder to see the big picture
