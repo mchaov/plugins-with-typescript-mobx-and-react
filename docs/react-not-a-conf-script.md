@@ -52,9 +52,26 @@ The nice thing of plug-ins is, that they may come in many forms. Even plug-in th
 
 ## Plugin based solution
 
+TODO
+
 ## Pros
 
+- independent development
+- independent deployability
+- independent release cycle
+- small easy to test bundles of code
+- reduced regression scope
+- technology agnosticity
+- async loading of the packages
+- easier to manage packages that are no longer used
+
 ## Cons
+
+- some code duplication is possible, but prefferable to coupling between components
+- more experienced team is needed to setup the foundation for this architecture
+- every component is coupled to the same interfaces package. Breaking changes to the interfaces might lead to a massive update and redeploy of the components. Interfaces package must be stable, and this is not trivial to achieve. There are ways to mitigate this such as: introducing new interfaces into new more unstable packages.
+- your offering is spread into many packages, sometimes it becomes harder to organize. Example: a customer's product is combination of views/bls/plugins with different versions.
+- harder to see the big picture
 
 ## Demo
 
