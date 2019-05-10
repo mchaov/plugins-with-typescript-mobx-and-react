@@ -5,6 +5,10 @@
 - Feel free to interupt me at any point for questions
 - Let's make a clear distinction between "React application" AND "Application using React as a view engine", I already have an application, and have 0 intentions to re-write it
 
+## Agenda
+
+This is not another wishful thinking talk. I am solving a real problem I am having and am giving a reference implemenetation of this architecture at the end of the talk...
+
 ## Intro to architecture
 
 Since the main focus of this presentation is architecture. I want to make a few points clear before I move to the specific problem and it's solution.
@@ -28,9 +32,13 @@ Since the main focus of this presentation is architecture. I want to make a few 
 
 TTM...
 
-How fast I can release new feature. How many systems are affected? Is restart of the system involved, can i t be avoided?
+How fast I can release new feature. How many systems are affected? Is restart of the system involved, can it be avoided?
+
+Time to market includes everything from feature conceptualization until the first user adopts the features.
 
 ## What is a plugin
+
+Software component that adds a specific feature to an existing computer program.
 
 - A piece of software - a component
 - Extends or enhances existing features
@@ -68,6 +76,12 @@ However, plugs are only part of the story. See the plug is your data connection.
 If you run out of sockets, you may purchase an extension cord. The nice thing of plug-ins is, that they may come in many forms. Even plug-in that enables you to connect to more plugins.
 
 ## Back to software...
+
+When a program supports plug-ins, it enables customization.
+
+Web browsers have historically allowed executables as plug-ins, though they are now mostly deprecated. (These are a different type of software module than browser extensions.) Two plug-in examples are the Adobe Flash Player for playing videos and a Java virtual machine for running applets.
+
+A theme or skin is a preset package containing additional or changed graphical appearance details, achieved by the use of a graphical user interface (GUI) that can be applied to specific software and websites to suit the purpose, topic, or tastes of different users to customize the look and feel of a piece of computer software or an operating system front-end GUI (and window managers).
 
 ### Software UI examples
 
