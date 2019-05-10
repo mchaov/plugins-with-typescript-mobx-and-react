@@ -63,7 +63,7 @@ To run the unit tests ```npm test:coverage``` or ```npm run test```.
 
 ### .configs
 
-Files - Purpose
+File - Purpose
 
 - ```cpuResolver.js``` calculates how many cores we can use for the build and test services. Trying to scale as much as possible to yield faster builds. Not needed for the demo, but part of my own building scripts :).
 - ```jest.config.js``` - generic test config for Jest. It is the only reason we have .babelrc in the root folder. Babel is not being used to compile the TS in this project.
