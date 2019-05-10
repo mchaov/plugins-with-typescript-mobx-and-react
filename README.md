@@ -169,6 +169,8 @@ While the plugins are following the provided contract they can have different im
 
 In the case of the web - as long as the code is compiled to JavaScript, there is no reason not to use the tech stack of your own choice.
 
+Example: message bus interface is implemented by a class working over the network that links with Bl running on the back end in whatever language/platform.
+
 #### Async loading of the packages
 
 Code can be loaded on the page on demand. Async communication via message bus ensures that components can link at any point in time.
