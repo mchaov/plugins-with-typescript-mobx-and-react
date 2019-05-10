@@ -231,6 +231,8 @@ This section provides a bit more light onto what is inside the different package
 
 [Event-emitter3](https://www.npmjs.com/package/event-emitter3) is not listed as dependency of any of the packages as it is compliant with our interfaces. Technically we do not depend on it, and you may notice inside the demo that it is not referenced anywhere. As long as you provide a message bus implementation compatible with our interfaces and requirements, the code is going to continue working as before. It is being imported only inside the unit tests and injected via the constructors in the "runtime" demo.
 
+In the reference implementation all instances communicate over the same message channels. If the need to have multiple instances talking over multiple channels arises, there are different approaches to take. Examples: pass the enum with message channels via the constructor; pass a prefix/sufix to be used with the default message channels; etc.
+
 Check the detailed docs per package:
 
 - [View](./docs/view.md)
