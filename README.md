@@ -1,6 +1,6 @@
-# Plugins with typescript mobx and react
+# Plugins with TypeScript, MobX, and React
 
-- [Plugins with typescript mobx and react](#plugins-with-typescript-mobx-and-react)
+- [Plugins with TypeScript, MobX, and React](#plugins-with-typescript-mobx-and-react)
   - [Installation & Running](#installation--running)
     - [Post compile/test folders](#post-compiletest-folders)
     - [.configs](#configs)
