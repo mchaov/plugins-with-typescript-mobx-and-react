@@ -1,4 +1,5 @@
 - [Bl](#bl)
+  - [Multiple Bl instances](#multiple-bl-instances)
 
 # Bl
 
@@ -26,6 +27,10 @@ Bl is responsible for data delivery and management. View and Plugins are unaware
 Of course all of the above should not be in the same file/class ... Bl is a package and should be split once there is contrast between stable and unstable features inside of it.
 
 Once you get the project to build and run feel free to run ```http://localhost:3000/packages/bl/index.html``` to see how the bl can be developed and tested on it's own.
+
+## Multiple Bl instances
+
+Multiple instance of the Bl package are possible. In the example implementation they are all going to communicate over the same message channels. This means that there is going to be collisions. Implementation could be extended in a way such that there is a message channel prefix passed to the constructor of the Bl class. This prefix is going to be used to ensure concrete instances of the view/bl/plugin packages talking to each other.
 
 ---
 
