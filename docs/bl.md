@@ -2,6 +2,7 @@
 
 - [Bl](#bl)
   - [Multiple Bl instances](#multiple-bl-instances)
+  - [Isomorphic Bl](#isomorphic-bl)
 
 Business logic package contains a small class that is responsible for plugin:
 
@@ -31,6 +32,10 @@ Once you get the project to build and run feel free to run ```http://localhost:3
 ## Multiple Bl instances
 
 Multiple instance of the Bl package are possible. In the example implementation they are all going to communicate over the same message channels. This means that there is going to be collisions. Implementation could be extended in a way such that there is a message channel prefix passed to the constructor of the Bl class. This prefix is going to be used to ensure concrete instances of the view/bl/plugin packages talking to each other.
+
+## Isomorphic Bl
+
+The way this design is structured implies that the Bl package could communicate via web sockets to the front-end and be completelly offloaded to the backend. Note that in the design the message bus is an interface. Any object conforming to the contract could be passed to the constructor of the Bl class, such that satisfies the need for messages/websocket/sse/etc. communication.
 
 ---
 
