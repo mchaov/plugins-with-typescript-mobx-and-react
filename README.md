@@ -95,6 +95,8 @@ The message bus is defined by the interfaces package and must be supplied by the
 
 Developed using TDD approach. It should prove to be useful if someone decides to hack around the source. Tests cover the end to end flows of the components.
 
+This architecture could be scaled between front-end and back-end by using a different means for communication between the components.
+
 ## What problem am I solving?
 
 In short - time to market for new features. I need a way to release new features and variations of the same features using more or less the same business logic. This approach allows me to decouple pretty well and also enables me to use third-parties that are not complient with my codebase. In addtition I am getting many benefits - I can release new features without recompile/redeploy/restart. The existing code bundles are immutable. Furthermore ... I can donwload only what I need in order to render the page - if new feature is enabled from the CMS it is going to be downloaded on demand.
@@ -231,7 +233,7 @@ In practice any message bus can do the trick as long as there is no forced seria
 
 This section provides a bit more light onto what is inside the different packages. Note that the different plugins implementation may vary! Thus only the general design of a plugin is being explored here.
 
-[Event-emitter3](https://www.npmjs.com/package/event-emitter3) is not listed as dependency of any of the packages as it is compliant with our interfaces. Technically we do not depend on it, and you may notice inside the demo that it is not referenced anywhere. As long as you provide a message bus implementation compatible with our interfaces and requirements, the code is going to continue working as before. It is being imported only inside the unit tests and injected via the constructors in the "runtime" demo.
+[Event-emitter3](https://www.npmjs.com/package/event-emitter3) is not listed as dependency of any of the packages as it is compliant with our interfaces. Technically we do not depend on it, and you may notice inside the demo that it is not referenced anywhere. As long as you provide a message bus implementation compatible with our interfaces and requirements, the code is going to continue working as before. It is being imported only inside the unit tests and injected via the constructors in the "runtime" demo. Additional reason for that is that the event emitter is not the only package suitable for this kind of communication. Let's assume the Bl package is running on the back-end. The injected message bus could sport a web socket or SSE even simple polling implementation.
 
 In the reference implementation all instances communicate over the same message channels. If the need to have multiple instances talking over multiple channels arises, there are different approaches to take. Examples: pass the enum with message channels via the constructor; pass a prefix/sufix to be used with the default message channels; etc.
 
