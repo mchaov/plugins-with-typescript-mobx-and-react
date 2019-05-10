@@ -121,7 +121,7 @@ It sounds intuitive to make things extendable/expandable. However, in software i
 
 So plugin software is such that allows you to expand a base application without the need to re-compilation, re-deployment or reboot of the said application.
 
-Plugins communicate via interfaces and heavily rely on abstract factories and dependency injection.
+Plugins communicate via interfaces and heavily rely on abstraction and dependency injection.
 
 ### Why do we need such an architecture?
 
