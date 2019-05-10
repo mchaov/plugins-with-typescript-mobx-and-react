@@ -80,7 +80,7 @@ File - Purpose
 
 After you execute ```npm run start``` and open the browser to the specified address you are going to see a working demo of the code.
 
-In this section I am going over on what is going on inside ```./index.html``` and why.
+In [this section](./docs/indexhtml.md) I am going over on what is going on inside ```./index.html``` and why.
 
 ## Overview
 
