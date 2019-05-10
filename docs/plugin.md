@@ -65,6 +65,10 @@ By design nothing stops you to implement this. And maybe there are business case
 
 ---
 
+Once you get the project to build and run it, feel free to run ```http://localhost:3000/packages/plugin{1-4}/index.html``` to see how the plugins can be developed and tested on their own.
+
+---
+
 Other related docs:
 
 - [Bl](bl.md)

@@ -58,10 +58,11 @@ import { MessageBus } from "../../contracts";
 
 export type ViewOptions = { mBus: MessageBus }
 
-// There is an application on top that instantiates all of these classes
+// There is an application on top, that instantiates all of these classes
 // and handles routing between pages.
 // These classes are .activate() when you navigate to their page
 // and .deactivate() when you navigate away.
+// The application plug-in interface expects activate/deactivate methods
 export class View {
     domId: string
     props: UIProps
@@ -89,7 +90,7 @@ export class View {
 }
 ```
 
-Once you get the project to build and run feel free to run ```http://localhost:3000/packages/view/index.html``` to see how the view can be developed and tested on it's own.
+Once you get the project to build and run it, feel free to run ```http://localhost:3000/packages/view/index.html``` to see how the view can be developed and tested on it's own.
 
 This powerful abstraction allows us to lift up the state of any component and the entire application to a level where it can be injected. When you need to move your code base to another view library or whatever package is affected, you can do that with minimum damage to the system.
 

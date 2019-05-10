@@ -201,17 +201,17 @@ The point here is not to explain all of the TypeScript's pros/cons nor compare t
 
 ### Why MobX
 
-1. MobX is react agnostic. It doesn't care if you use it with React and TypeScript, making this a flexible solution. Very easy to create adapters for event driven implementations.
+1. MobX is react agnostic. It doesn't care if you use it with React and TypeScript, making this a flexible solution. Very easy to create adapters for other event driven implementations.
 1. Very little amount of boiler plate code.
 1. The redux pattern is just not suitable for this implementation.
 1. Provides observable model with @decorators, making for super simple and readable implementations.
-1. Internal state mutation provides improved performance for large scale applications dealing with a lot of real time changing data.
+1. Internal state mutation provides improved performance for large scale applications dealing with a lot of fast updating data.
 
 ### Why React
 
 Two main reasons:
 
-1. Inital implementation for this concept was implemented in a company where React is the view library
+1. Inital implementation for this concept was implemented in a company where React is **the** view library.
 1. This demo was written and documented for [http://react-not-a-conf.com/](http://react-not-a-conf.com/) 11.05.2019.
 
 Additional reasons:
@@ -229,13 +229,13 @@ The message bus interface was designed based on the NodeJS EventEmitter implemen
 
 > "EventEmitter3 is a high performance EventEmitter. It has been micro-optimized for various of code paths making this, one of, if not the fastest EventEmitter available for Node.js. The module is API compatible with the EventEmitter that ships by default with Node.js but there are some slight differences..."
 
-In practice any message bus can do the trick as long as there is no forced serialization/deserialization of the passed objects. This design expects us to pass objects with methods that are not serializable.
+In practice any message bus can do the trick as long as there is no forced serialization/deserialization of the passed objects. This design expects us to pass objects by reference.
 
 ## Detailed design
 
 This section provides a bit more light onto what is inside the different packages. Note that the different plugins implementation may vary! Thus only the general design of a plugin is being explored here.
 
-[Event-emitter3](https://www.npmjs.com/package/event-emitter3) is not listed as dependency of any of the packages as it is compliant with our interfaces. Technically we do not depend on it, and you may notice inside the demo that it is not referenced anywhere. As long as you provide a message bus implementation compatible with our interfaces and requirements, the code is going to continue working as before. It is being imported only inside the unit tests and injected via the constructors in the "runtime" demo. Additional reason for that is that the event emitter is not the only package suitable for this kind of communication. Let's assume the Bl package is running on the back-end. The injected message bus could sport a web socket or SSE even simple polling implementation.
+[Event-emitter3](https://www.npmjs.com/package/event-emitter3) is not listed as dependency of any of the packages as it is compliant with our interfaces. Technically we do not depend on it, and you may notice inside the demo that it is not referenced anywhere. As long as you provide a message bus implementation compatible with our interfaces and requirements, the code is going to continue working as before. It is being imported only inside the unit tests and injected via the constructors in the "runtime" demo. Additional reason for that is that the event emitter is not the only package suitable for this kind of communication. Let's assume the Bl package is running on the back-end. The injected message bus could sport a web socket or SSE or even a simple polling implementation.
 
 In the reference implementation all instances communicate over the same message channels. If the need to have multiple instances talking over multiple channels arises, there are different approaches to take. Examples: pass the enum with message channels via the constructor; pass a prefix/sufix to be used with the default message channels; etc.
 
@@ -251,24 +251,28 @@ Check the detailed docs per package:
 Very simple package providing interfaces and enums.
 
 **Why do we use interfaces and not base classes?**
-TODO
+Base classes expect some kind of implementation that could possibly tie you to a language/platform. There are other issues that could arise with the increasing scope of the product. On general we follow the GOF principle - "Always prefer composition over inheritance".
 
 ## Real life examples
 
-Examples of plugin based UI architectures can be found in many places. A lot more advanced version of what is presented here is being used at [SBTech](www.sbtech.com) where I first developed the concept with React and TypeScript. At SBTech we are using this approach for integration with different video streaming providers. A big surprise for us was that many streaming providers are using very big, and very old video players. The provided JS is usualy incompatible with React and TypeScript, not to mention ... huge in terms of KB. Some of the examples require us to load 400+ KB of JS, just to run a stream.
+Examples of plugin based UI architectures can be found in many places. A lot more advanced version of what is presented here is being used at [SBTech](www.sbtech.com) where I first developed this version of the concept with React and TypeScript. At SBTech we are using this approach for integration with different video streaming providers. A big surprise for us was that many streaming providers are using very big, and very old video players. The provided JS is usualy incompatible with React and TypeScript, not to mention ... huge in terms of KB. Some of the examples require us to load 400+ KB of JS, just to run a stream.
 
 Plugin based systems such as [wordpress](https://wordpress.org), [magento](https://magento.com) are very common in the eCommerce space. Every web application build with such system is a mashup of plugins communicating via shared interface.
 
+More or less the success of [jQuery](https://jquery.com) was because of how easy it is to create and distribute plugins for it.
+
+Plugin based systems are also: your operating system, your mobile OS; complex applications as 3DSMax, Photoshop and others...
+
 ## Summary
 
-This architecture solves a particular problem. To enable the company using it to deliver faster. Time to market is important for the business. This approach enables you to do more granular code reuse by splitting a feature into it's useful components. You are free to develop N number of plugins in parallel on top of the same business logic, injected into the same view.
+This architecture solves a particular problem. To enable the company using it to deliver faster. Time to market is important for the business. This approach enables you to do more granular code reuse by splitting a feature into it's useful components. You are free to develop N number of plugins in parallel on top of the same business logic, injected into the same view. Same goes for the views and bl packages.
 
 ### What this architecture isn't
 
 - This is not a cure for cancer.
+- If you don't understand the pros/cons of this architecture, you should stop with the YouTube videos and read books for a while. If you saw this presentation on YouTube - this point is still valid!
 - This is not how you do an entire application, but it shows how to plug stuff into one.
 - Knowledge of this is not going to make you a better developer if you are not one already.
-- If you don't understand the pros/cons of this architecture, you should stop with the YouTube videos and read books for a while. If you saw this presentation on YouTube - this point is still valid!
 - This is not going to solve world hunger.
 - This is not the answer for embedded systems or resource constrained environments (mobile web could be an exception). Example: your car's brakes, MRI scanners, real-time systems such as heart monitors and your granma's bypass.
 

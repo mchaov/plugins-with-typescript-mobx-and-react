@@ -39,6 +39,10 @@ The way this design is structured implies that the Bl package could communicate 
 
 ---
 
+Once you get the project to build and run it, feel free to run ```http://localhost:3000/packages/bl/index.html``` to see how the bl can be developed and tested on it's own.
+
+---
+
 Other related docs:
 
 - [View](view.md)
