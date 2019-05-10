@@ -4,6 +4,7 @@
     - [.configs](#configs)
     - [Running the demo](#running-the-demo)
   - [Overview](#overview)
+  - [What problem am I solving?](#what-problem-am-i-solving)
     - [What is a plugin?](#what-is-a-plugin)
     - [Why do we need such an architecture?](#why-do-we-need-such-an-architecture)
       - [Independent development](#independent-development)
@@ -89,6 +90,10 @@ This concept can be implemented with focus on plugins for the Bl as well.
 
 **Where is the message bus on the picture?**
 The message bus is defined by the interfaces package and must be supplied by the hosting application. It could be made available via DI. The message bus is not present on the overview because the point is to show only the components we are to develop. In addition: the message bus is not a explicit dependency of the packages. As long as it supports the interface any solution is going to work.
+
+## What problem am I solving?
+
+In short time to market for new features. I need a way to release new features and variations of the same features using more or less the same business logic. This approach allows me to decouple pretty well and also enables me to use third-parties that are not complient with my codebase. In addtition I am getting many benefits - I can release new features without recompile/redeploy/restart. The existing code bundles are immutable.
 
 ### What is a plugin?
 
