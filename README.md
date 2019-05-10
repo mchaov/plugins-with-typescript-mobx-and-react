@@ -44,6 +44,8 @@ Four plugins variations are provided in this repo:
 - [React Carousel](https://www.npmjs.com/package/react-responsive-carousel)
 - [Vue Carousel](https://www.npmjs.com/package/vueperslides)
 
+(literaly took the first google results for the third-party scripts)
+
 ## Installation & Running
 
 Install, build, run:
