@@ -255,15 +255,16 @@ Plugin based systems such as [wordpress](https://wordpress.org), [magento](https
 
 ## Summary
 
+This architecture solves a particular problem. To enable the company using it to deliver faster. Time to market is important for the business. This approach enables you to do more granular code reuse by splitting a feature into it's useful components. You are free to develop N number of plugins in parallel on top of the same business logic, injected into the same view.
+
 ### What this architecture isn't
 
 - This is not a cure for cancer.
 - This is not how you do an entire application, but it shows how to plug stuff into one.
 - Knowledge of this is not going to make you a better developer if you are not one already.
-- If you don't understand the pros/cons of this architecture, you should stop YouTube and read books for a while.
-- This is not panacea.
+- If you don't understand the pros/cons of this architecture, you should stop with the YouTube videos and read books for a while. If you saw this presentation on YouTube - this point is still valid!
 - This is not going to solve world hunger.
-- This is not the answer for embedded systems or resource constrained environments (mobile web is an exception).
+- This is not the answer for embedded systems or resource constrained environments (mobile web could be an exception). Example: your car's brakes, MRI scanners, real-time systems such as heart monitors and your granma's bypass.
 
 ### Pros
 
@@ -283,3 +284,12 @@ Plugin based systems such as [wordpress](https://wordpress.org), [magento](https
 - every component is coupled to the same interfaces package. Breaking changes to the interfaces might lead to a massive update and redeploy of the components. Interfaces package must be stable, and this is not trivial to achieve. There are ways to mitigate this such as: introducing new interfaces into new more unstable packages.
 - your offering is spread into many packages, sometimes it becomes harder to organize. Example: a customer's product is combination of views/bls/plugins with different versions.
 - harder to see the big picture
+
+---
+
+Check the detailed docs per package:
+
+- [View](./docs/view.md)
+- [Bl](./docs/bl.md)
+- [Plugin](./docs/plugin.md)
+- [Composed example](./docs/indexhtml.md)
