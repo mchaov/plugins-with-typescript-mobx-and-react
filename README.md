@@ -93,7 +93,7 @@ The message bus is defined by the interfaces package and must be supplied by the
 
 ## What problem am I solving?
 
-In short - time to market for new features. I need a way to release new features and variations of the same features using more or less the same business logic. This approach allows me to decouple pretty well and also enables me to use third-parties that are not complient with my codebase. In addtition I am getting many benefits - I can release new features without recompile/redeploy/restart. The existing code bundles are immutable.
+In short - time to market for new features. I need a way to release new features and variations of the same features using more or less the same business logic. This approach allows me to decouple pretty well and also enables me to use third-parties that are not complient with my codebase. In addtition I am getting many benefits - I can release new features without recompile/redeploy/restart. The existing code bundles are immutable. Furthermore ... I can donwload only what I need in order to render the page - if new feature is enabled from the CMS it is going to be downloaded on demand.
 
 ### What is a plugin?
 
