@@ -24,7 +24,18 @@ Since the main focus of this presentation is architecture. I want to make a few 
 - Reusability – chance of using a component or system in other components/systems with small or no change.
 - Supportability – useful information for identifying and solving problems.
 
+## My Problem
+
+TTM...
+
+How fast I can release new feature. How many systems are affected? Is restart of the system involved, can i t be avoided?
+
 ## What is a plugin
+
+- A piece of software - a component
+- Extends or enhances existing features
+- Adds new features
+- Can not live on it's own
 
 Do you remember the time when you needed to reboot your PC to add/remove connected devices?
 
@@ -41,18 +52,55 @@ Every interface has some strict requirements for the consumer to meet
 ### Sockets
 
 Like these sockets that work with specific plugs only.
+But can be extended to handle other plugs via various crazy adapters.
+
+### Adapters
+
+Which in turn allows you to use...
 
 ### Appliances
 
+...you appliances.
 However, plugs are only part of the story. See the plug is your data connection. You still need to comply with the data standard in order to connect safely.
 
 ### Extension cord
 
-The nice thing of plug-ins is, that they may come in many forms. Even plug-in that enables you to connect to more plugins.
+If you run out of sockets, you may purchase an extension cord. The nice thing of plug-ins is, that they may come in many forms. Even plug-in that enables you to connect to more plugins.
+
+## Back to software...
+
+### Software UI examples
+
+We are surrounded by software that is extended via:
+
+- plugins
+- apps
+- applications
+- programs
+- whatever
+
+Yet when we design for the web, we usually don't think in this way.
 
 ## Plugin based solution
 
-TODO
+- Host application      -> We need a host application/environment an ecosystem where our features are going to be plugged.
+- Strict interface      -> that is going to tell us what/how we must do to be compatible with our host
+- Communication         -> There are multiple ways to achieve it. I am using a message bus in the reference implementation.
+- Business Logic        -> the core of our product
+- View                  -> presentation of the features
+- Plug-ins              -> extensions
+- Packages              -> distribution
+- Version management
+
+Thus today I am going to present a solution to this problem. One that I am going to share together with all of it's documentation at the end of this talk.
+
+This outline shows some of the major things that need to be considerd when we are creating a plugin based system.
+
+I am not going to focus on the "host application". Any web app could be used as a base. I am also not going to focus on version management (although there is info about it in the github repo docs)
+
+The focus of this talk is a feature developed as a plugin based system.
+
+UML much? :)
 
 ## Pros
 

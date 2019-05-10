@@ -87,6 +87,9 @@ Simple implementation for plugin based solution focused on the UI. Implementatio
 
 This concept can be implemented with focus on plugins for the Bl as well.
 
+**Where is the message bus on the picture?**
+The message bus is defined by the interfaces package and must be supplied by the hosting application. It could be made available via DI. The message bus is not present on the overview because the point is to show only the components we are to develop. In addition: the message bus is not a explicit dependency of the packages. As long as it supports the interface any solution is going to work.
+
 ### What is a plugin?
 
 **plug-in** */ˈplʌɡɪn/*
