@@ -1,7 +1,7 @@
+# Bl
+
 - [Bl](#bl)
   - [Multiple Bl instances](#multiple-bl-instances)
-
-# Bl
 
 Business logic package contains a small class that is responsible for plugin:
 

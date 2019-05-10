@@ -1,3 +1,5 @@
+# Composed example explanation
+
 - [Composed example explanation](#composed-example-explanation)
   - [HEAD section](#head-section)
     - [runtime](#runtime)
@@ -9,8 +11,6 @@
     - [main setup](#main-setup)
     - [entities init](#entities-init)
     - [bottom scripts section](#bottom-scripts-section)
-
-# Composed example explanation
 
 After you execute ```npm run start``` and open the browser to the specified address you are going to see a working demo of the code.
 

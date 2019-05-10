@@ -1,3 +1,5 @@
+# Plugins with typescript mobx and react
+
 - [Plugins with typescript mobx and react](#plugins-with-typescript-mobx-and-react)
   - [Installation & Running](#installation--running)
     - [Post compile/test folders](#post-compiletest-folders)
@@ -27,8 +29,6 @@
     - [What this architecture isn't](#what-this-architecture-isnt)
     - [Pros](#pros)
     - [Cons](#cons)
-
-# Plugins with typescript mobx and react
 
 This repository contains an implementation of a reference architecture for plugin based UI. Highlights of this implementation are:
 

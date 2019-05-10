@@ -1,9 +1,9 @@
+# Plugin
+
 - [Plugin](#plugin)
   - [Do plugins communicate between each other?](#do-plugins-communicate-between-each-other)
   - [Duplicated code](#duplicated-code)
   - [Plugin inside of a plugin](#plugin-inside-of-a-plugin)
-
-# Plugin
 
 The plugin package contains two main classes and few small helper functions. For more details check Figure 4. Plugin package.
 
